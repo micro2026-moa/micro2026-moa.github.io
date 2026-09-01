@@ -27,11 +27,9 @@
   --warm-wash:#F1E9DB;
   --btn-fg:#FFFFFF;
   --shadow:0 1px 2px rgba(17,24,35,.05), 0 8px 24px -16px rgba(17,24,35,.25);
-
   --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-
   --shell:940px;
   --pad:clamp(22px,5vw,40px);
 }
@@ -67,7 +65,6 @@
   --btn-fg:#0E1219;
   --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
 }
-
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
@@ -83,9 +80,7 @@ img{max-width:100%}
 a{color:inherit}
 ::selection{background:var(--accent-wash);color:var(--ink)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
-
 .shell{max-width:var(--shell);margin:0 auto;padding-inline:var(--pad)}
-
 /* ---------- header ---------- */
 .masthead{
   position:sticky;top:0;z-index:20;
@@ -113,7 +108,6 @@ a{color:inherit}
   .masthead nav{gap:8px}
   .masthead nav .btn{padding:.5em .8em;font-size:12.5px}
 }
-
 .btn{
   display:inline-flex;align-items:center;gap:.5em;
   font-family:var(--f-display);font-weight:600;
@@ -132,13 +126,11 @@ a{color:inherit}
 .btn--ghost:hover{background:var(--rule-soft);color:var(--ink)}
 .btn--ghost.is-current{border-color:var(--accent);color:var(--accent)}
 .btn .arrow{font-family:var(--f-mono);font-weight:400}
-
 .eyebrow a, .lede a, .colophon a{
   color:inherit;text-decoration:underline;text-underline-offset:3px;
   text-decoration-thickness:1px;text-decoration-color:var(--rule);
 }
 .eyebrow a:hover, .lede a:hover, .colophon a:hover{color:var(--accent);text-decoration-color:var(--accent)}
-
 /* ---------- hero ---------- */
 .hero{padding-block:clamp(52px,9vw,100px) clamp(52px,8vw,92px)}
 .eyebrow{
@@ -162,7 +154,6 @@ h1{
 .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:34px}
 .deadline{font-family:var(--f-mono);font-size:13px;color:var(--ink-soft);margin:0}
 .deadline b{color:var(--ink);font-weight:500}
-
 /* ---------- sections ---------- */
 section{padding:clamp(48px,7vw,80px) 0;border-top:1px solid var(--rule)}
 .sec-head{margin-bottom:clamp(26px,4vw,36px)}
@@ -176,7 +167,6 @@ h2{
 .prose p:last-child{margin-bottom:0}
 .prose em{font-style:normal;font-weight:600}
 .muted{color:var(--ink-soft)}
-
 /* ---------- schedule ---------- */
 .table-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;min-width:520px}
@@ -203,7 +193,6 @@ td.item .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
   #dates tbody td.when{padding-top:3px;padding-bottom:13px}
   #dates td.item .tba{white-space:normal}
 }
-
 /* ---------- leaderboard ---------- */
 .board{border:1px solid var(--rule);border-radius:6px;background:var(--surface);overflow:hidden}
 .board + .board{margin-top:20px}
@@ -235,7 +224,6 @@ h2 .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 button.btn{border:0;cursor:pointer;font-family:var(--f-display)}
 button.btn--ghost{border:1px solid var(--rule)}
 .coming .btn{margin-top:16px}
-
 /* ---------- prizes ---------- */
 .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .rows li{
@@ -248,7 +236,6 @@ button.btn--ghost{border:1px solid var(--rule)}
   font-family:var(--f-display);font-weight:700;font-size:24px;
   letter-spacing:-.02em;font-variant-numeric:tabular-nums;
 }
-
 /* ---------- resources ---------- */
 .links{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .links li{border-bottom:1px solid var(--rule-soft)}
@@ -265,7 +252,6 @@ button.btn--ghost{border:1px solid var(--rule)}
   .links a{grid-template-columns:1fr}
   .links .url{grid-column:1;grid-row:3;justify-self:start;margin-top:3px}
 }
-
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 .org{
@@ -274,7 +260,6 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 }
 .orgs{font-family:var(--f-display);font-weight:600;font-size:16px;margin:0 0 22px;line-height:1.5}
 .colophon{font-size:14px;color:var(--ink-soft);margin:0}
-
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition:none!important;animation:none!important}
@@ -282,7 +267,6 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 </style>
 </head>
 <body>
-
 <header class="masthead">
   <div class="shell">
     <a class="brand" href="#top">MOA<span>·</span>Competition</a>
@@ -297,9 +281,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     </nav>
   </div>
 </header>
-
 <main id="top">
-
   <div class="hero shell">
     <p class="eyebrow"><span><a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a></span> · <span>November 1, 2026</span> · <span>Athens, Greece</span></p>
     <h1>NPU Model Optimization Competition</h1>
@@ -308,27 +290,23 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <a class="btn btn--lg" href="https://docs.google.com/forms/d/e/1FAIpQLScOBksLrh4AW5ApaWLEEAdY1pXb4nwV6N1_DFuDWO8kCRc_4A/viewform" target="_blank" rel="noopener">Register <span class="arrow">→</span></a>
     </div>
   </div>
-
   <section id="overview">
     <div class="shell">
       <div class="sec-head">
         <h2>Overview</h2>
       </div>
-
       <div class="prose">
-        <p>Participants start from a baseline implementation of Gemma 4 12B written for RNGD with the furiosa-opt toolchain and improve its inference performance. Programs are submitted as jobs to FuriosaAI Arena and executed on shared RNGD servers, so no local hardware is required.</p>
+        <p>Participants start from a baseline implementation of Gemma 4 12B written for RNGD with the furiosa-opt toolchain and improve its inference performance. Participants do not need their own RNGD hardware: access is provided through FuriosaAI Arena, where submitted programs run as jobs on shared servers.</p>
         <p>The competition is held in two rounds. The <em>Kernel Optimization Round</em> targets three decoder-layer kernels of the model — the QKV projection, the attention output projection and the feed-forward block. Participants with the highest results advance to the <em>Model Optimization Round</em>, in which the full model is optimized end to end.</p>
         <p>In both rounds, submissions must pass a correctness check and are then ranked by performance. Detailed rules and evaluation criteria are specified in the baseline repository.</p>
       </div>
     </div>
   </section>
-
   <section id="dates">
     <div class="shell">
       <div class="sec-head">
         <h2>Important dates</h2>
       </div>
-
       <div class="table-wrap">
         <table>
           <thead>
@@ -346,13 +324,11 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <p class="after">The award ceremony takes place at the MOA Workshop, held on November 1, 2026 at MICRO 2026 in Athens, Greece.</p>
     </div>
   </section>
-
   <section id="prizes">
     <div class="shell">
       <div class="sec-head">
         <h2>Prizes</h2>
       </div>
-
       <ul class="rows">
         <li><span class="place">1st place</span><span class="amount">€5,000</span></li>
         <li><span class="place">2nd place</span><span class="amount">€3,000</span></li>
@@ -361,18 +337,16 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <p class="after">Winners must attend the on-site award ceremony in Athens.</p>
     </div>
   </section>
-
   <section id="resources">
     <div class="shell">
       <div class="sec-head">
         <h2>Resources</h2>
       </div>
-
       <ul class="links">
         <li>
           <a href="https://github.com/HoseongLee/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">
             <span class="name">Baseline repository</span>
-            <span class="desc">Gemma 4 12B baseline for RNGD, together with the competition rules and instructions. Covers the target kernels, what may be modified, correctness tolerances, the kernel test used for grading, toolchain setup and a kernel optimization guide.</span>
+            <span class="desc">Gemma 4 12B baseline for RNGD. The README also serves as the competition guide. It specifies the target kernels, permitted changes and correctness tolerances, and explains how to set up the toolchain, run the grading test and optimize a kernel.</span>
             <span class="url">github.com/HoseongLee/furiosa-opt-gemma4-12B</span>
           </a>
         </li>
@@ -393,7 +367,6 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       </ul>
     </div>
   </section>
-
 </main>
 <footer>
   <div class="shell">
@@ -402,6 +375,5 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     <p class="colophon">This competition is part of the <a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a> — Measuring and Optimizing Heterogeneous AI Architectures, at MICRO 2026, the 59th IEEE/ACM International Symposium on Microarchitecture, Athens, Greece.</p>
   </div>
 </footer>
-
 </body>
 </html>
