@@ -102,6 +102,7 @@
     overflow:hidden; border:1px solid var(--line); border-radius:16px;
     background:rgba(15,23,42,.76); box-shadow:0 16px 42px rgba(0,0,0,.22);
   }
+  .kernel-boards{display:grid; gap:22px}
   .board-header{
     display:flex; align-items:flex-end; justify-content:space-between; gap:20px;
     padding:23px 25px 20px; border-bottom:1px solid var(--line);
@@ -115,7 +116,7 @@
   }
   select:focus{border-color:var(--accent)}
   .table-wrap{overflow-x:auto}
-  table{width:100%; min-width:720px; border-collapse:collapse}
+  table{width:100%; min-width:860px; border-collapse:collapse}
   th{
     padding:12px 16px; color:#9aa9c5; background:rgba(255,255,255,.035); text-align:left;
     font-size:.67rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
@@ -156,17 +157,7 @@
 
     <section class="round-section" id="leaderboard" aria-labelledby="round-1-title">
       <h2 class="round-title" id="round-1-title"><span>Round 1.</span> Kernel Optimization</h2>
-      <section class="board" aria-labelledby="round-1-board-title">
-        <div class="board-header">
-          <div><h3 id="round-1-board-title">Leaderboard</h3><p id="summary">Loading verified benchmark results…</p></div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Rank</th><th>Team</th><th>Kernel</th><th>Score</th><th>Buildability</th><th>Correctness</th><th>Performance</th></tr></thead>
-            <tbody id="rows"></tbody>
-          </table>
-        </div>
-      </section>
+      <div class="kernel-boards" id="kernel-boards" aria-live="polite"></div>
     </section>
 
     <section class="round-section" aria-labelledby="round-2-title">
@@ -187,19 +178,20 @@
   document.getElementById("status").textContent = CONFIG.statusText;
 
   const state = { data: [] };
-  const elements = {
-    rows: document.getElementById("rows"), summary: document.getElementById("summary"),
-  };
+  const KERNELS = ["ops::sliding_project_qkv", "ops::sliding_attention_output", "ops::decoder_feedforward"];
+  const elements = { boards: document.getElementById("kernel-boards") };
   const escapeHtml = value => { const node = document.createElement("div"); node.textContent = value || ""; return node.innerHTML; };
   const number = (value, digits = 3) => Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: digits });
   const result = value => value ? "Pass" : "Fail";
   function renderLeaderboard() {
-    const visible = state.data;
-    elements.summary.textContent = visible.length ? `${visible.length} submitted result${visible.length === 1 ? "" : "s"} · ranked by performance` : "No submitted results yet.";
-    if (!visible.length) { elements.rows.innerHTML = `<tr><td class="empty" colspan="7"><strong>No results to display</strong>Results submitted by AI-BMT will appear here automatically.</td></tr>`; return; }
-    elements.rows.innerHTML = visible.map((row, index) => {
-      const rank = row.rank ?? index + 1;
-      return `<tr><td class="rank ${rank <= 3 ? "top" : ""}">${rank}</td><td><span class="team">${escapeHtml(row.teamName)}</span></td><td><span class="tag">${escapeHtml(row.kernelName)}</span></td><td class="metric">${number(row.score)}</td><td>${result(row.buildability)}</td><td>${result(row.correctness)}</td><td class="metric">${number(row.performance)}</td></tr>`;
+    elements.boards.innerHTML = KERNELS.map(kernelName => {
+      const entries = state.data.filter(row => row.kernelName === kernelName);
+      const rows = entries.length ? entries.map((row, index) => {
+        const rank = row.rank ?? index + 1;
+        return `<tr><td class="rank ${rank <= 3 ? "top" : ""}">${rank}</td><td><span class="team">${escapeHtml(row.teamName)}</span></td><td class="metric">${number(row.score)}</td><td>${result(row.buildability)}</td><td>${result(row.correctness)}</td><td class="metric">${number(row.performance)}</td></tr>`;
+      }).join("") : `<tr><td class="empty" colspan="6"><strong>No results to display</strong>Results for this kernel will appear here automatically.</td></tr>`;
+      const summary = entries.length ? `${entries.length} submitted result${entries.length === 1 ? "" : "s"} · ranked by performance` : "No submitted results yet.";
+      return `<section class="board" aria-label="${escapeHtml(kernelName)} leaderboard"><div class="board-header"><div><h3>${escapeHtml(kernelName)}</h3><p>${summary}</p></div></div><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Team</th><th>Score</th><th>Buildability</th><th>Correctness</th><th>Performance</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
     }).join("");
   }
   async function loadLeaderboard() {
@@ -209,8 +201,7 @@
       const payload = await response.json(); state.data = payload.data || [];
       renderLeaderboard();
     } catch (_) {
-      elements.summary.textContent = "Leaderboard service is temporarily unavailable.";
-      elements.rows.innerHTML = `<tr><td class="empty" colspan="6"><strong>Unable to load results</strong>Please try again shortly.</td></tr>`;
+      elements.boards.innerHTML = `<section class="board"><div class="empty"><strong>Unable to load results</strong>Leaderboard service is temporarily unavailable. Please try again shortly.</div></section>`;
     }
   }
   loadLeaderboard();
