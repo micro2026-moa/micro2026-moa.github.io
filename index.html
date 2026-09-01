@@ -12,9 +12,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<script>
-  const LEADERBOARD_API_URL = "https://micro2026-api.duckdns.org/api/leaderboard";
-</script>
 <style>
 :root{
   --ink:#111823;
@@ -222,17 +219,6 @@ td.item .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 }
 td.rank{font-family:var(--f-mono);font-variant-numeric:tabular-nums;width:60px}
 td.score{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
-#leaderboard .board-head h3{font-family:var(--f-mono);font-size:14px;word-break:break-word}
-#leaderboard .board + .board{margin-top:20px}
-#leaderboard td.pass{color:var(--accent-ink);font-family:var(--f-mono);font-size:13px}
-#leaderboard td.fail{color:var(--warm);font-family:var(--f-mono);font-size:13px}
-@media (max-width:560px){
-  #leaderboard .board table{min-width:620px}
-  #leaderboard .board thead{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:normal}
-  #leaderboard .board tbody tr{display:table-row;border:0}
-  #leaderboard .board tbody td{display:table-cell;padding:14px 20px}
-}
-
 /* ---------- prizes ---------- */
 .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .rows li{
@@ -289,7 +275,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <a class="navlink" href="#prizes">Prizes</a>
       <a class="navlink" href="#resources">Resources</a>
       <span class="navsep" aria-hidden="true"></span>
-      <a class="btn btn--ghost" href="#leaderboard">Leaderboard</a>
+      <a class="btn btn--ghost" href="leaderboard.html">Leaderboard</a>
       <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScOBksLrh4AW5ApaWLEEAdY1pXb4nwV6N1_DFuDWO8kCRc_4A/viewform" target="_blank" rel="noopener">Register</a>
     </nav>
   </div>
@@ -317,16 +303,6 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
         <p>The competition is held in two rounds. The <em>Kernel Optimization Round</em> targets three decoder-layer kernels of the model — the QKV projection, the attention output projection and the feed-forward block. Participants with the highest results advance to the <em>Model Optimization Round</em>, in which the full model is optimized end to end.</p>
         <p>In both rounds, submissions must pass a correctness check and are then ranked by performance. Detailed rules and evaluation criteria are specified in the baseline repository.</p>
       </div>
-    </div>
-  </section>
-
-  <section id="leaderboard">
-    <div class="shell">
-      <div class="sec-head">
-        <h2>Round 1. Kernel Optimization</h2>
-        <p class="after">Leaderboard ranking is based on the best valid result from each team.</p>
-      </div>
-      <div id="kernel-boards" aria-live="polite"></div>
     </div>
   </section>
 
@@ -377,13 +353,6 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 
       <ul class="links">
         <li>
-          <a href="RESULTS_API.md" target="_blank" rel="noopener">
-            <span class="name">Results API</span>
-            <span class="desc">Result submission format for the kernel leaderboard.</span>
-            <span class="url">RESULTS_API.md</span>
-          </a>
-        </li>
-        <li>
           <a href="https://github.com/HoseongLee/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">
             <span class="name">Baseline repository</span>
             <span class="desc">Gemma 4 12B baseline for RNGD, together with the competition rules and instructions. Covers the target kernels, what may be modified, correctness tolerances, the kernel test used for grading, toolchain setup and a kernel optimization guide.</span>
@@ -416,46 +385,6 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     <p class="colophon">This competition is part of the <a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a> — Measuring and Optimizing Heterogeneous AI Architectures, at MICRO 2026, the 59th IEEE/ACM International Symposium on Microarchitecture, Athens, Greece.</p>
   </div>
 </footer>
-
-<script>
-  const KERNELS = [
-    "ops::sliding_project_qkv",
-    "ops::sliding_attention_output",
-    "ops::decoder_feedforward",
-  ];
-  const boards = document.getElementById("kernel-boards");
-  const escapeHtml = value => {
-    const node = document.createElement("div");
-    node.textContent = value ?? "";
-    return node.innerHTML;
-  };
-  const number = value => Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: 3 });
-  const status = value => value ? "Pass" : "Fail";
-
-  function renderLeaderboard(data) {
-    boards.innerHTML = KERNELS.map(kernelName => {
-      const entries = data.filter(row => row.kernelName === kernelName);
-      const rows = entries.length ? entries.map((row, index) => {
-        const rank = row.rank ?? index + 1;
-        return `<tr><td class="rank">${rank}</td><td>${escapeHtml(row.teamName)}</td><td class="score">${number(row.score)}</td><td class="${row.buildability ? "pass" : "fail"}">${status(row.buildability)}</td><td class="${row.correctness ? "pass" : "fail"}">${status(row.correctness)}</td><td class="score">${number(row.performance)}</td></tr>`;
-      }).join("") : `<tr><td class="empty" colspan="6">No results submitted yet.</td></tr>`;
-      const note = entries.length ? `${entries.length} team${entries.length === 1 ? "" : "s"} · ranked by performance` : "No submitted results yet.";
-      return `<section class="board"><div class="board-head"><h3>${escapeHtml(kernelName)}</h3><p class="board-note">${note}</p></div><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Team</th><th>Score</th><th>Buildability</th><th>Correctness</th><th>Performance</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
-    }).join("");
-  }
-
-  async function loadLeaderboard() {
-    try {
-      const response = await fetch(LEADERBOARD_API_URL);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const payload = await response.json();
-      renderLeaderboard(payload.data || []);
-    } catch (_) {
-      boards.innerHTML = `<section class="board"><div class="board-head"><h3>Leaderboard unavailable</h3><p class="board-note">Please try again shortly.</p></div></section>`;
-    }
-  }
-  loadLeaderboard();
-</script>
 
 </body>
 </html>
