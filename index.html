@@ -190,7 +190,7 @@
         const rank = row.rank ?? index + 1;
         return `<tr><td class="rank ${rank <= 3 ? "top" : ""}">${rank}</td><td><span class="team">${escapeHtml(row.teamName)}</span></td><td class="metric">${number(row.score)}</td><td>${result(row.buildability)}</td><td>${result(row.correctness)}</td><td class="metric">${number(row.performance)}</td></tr>`;
       }).join("") : `<tr><td class="empty" colspan="6"><strong>No results to display</strong>Results for this kernel will appear here automatically.</td></tr>`;
-      const summary = entries.length ? `${entries.length} submitted result${entries.length === 1 ? "" : "s"} · ranked by performance` : "No submitted results yet.";
+      const summary = entries.length ? `${entries.length} team${entries.length === 1 ? "" : "s"} · best valid result per team · ranked by performance` : "No submitted results yet.";
       return `<section class="board" aria-label="${escapeHtml(kernelName)} leaderboard"><div class="board-header"><div><h3>${escapeHtml(kernelName)}</h3><p>${summary}</p></div></div><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Team</th><th>Score</th><th>Buildability</th><th>Correctness</th><th>Performance</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
     }).join("");
   }
