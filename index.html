@@ -21,9 +21,8 @@
 <script>
   const CONFIG = {
     statusText: "Registration opening soon",   // 예: "Registration opens August 24"
-    // GitHub Pages는 정적 사이트이므로, Zebra 백엔드의 공개 HTTPS API 주소를 넣습니다.
-    // 예: "https://leaderboard-api.example.org/api/leaderboard"
-    leaderboardApiUrl: "",
+    // GitHub Pages는 정적 사이트이므로, Zebra 백엔드의 공개 HTTPS API 주소를 사용합니다.
+    leaderboardApiUrl: "https://micro2026-api.duckdns.org/api/leaderboard",
   };
 </script>
 
@@ -222,11 +221,6 @@
     }).join("");
   }
   async function loadLeaderboard() {
-    if (!CONFIG.leaderboardApiUrl) {
-      elements.summary.textContent = "Leaderboard API URL has not been configured yet.";
-      elements.rows.innerHTML = `<tr><td class="empty" colspan="6"><strong>Backend connection pending</strong>The public Zebra API URL will be configured before launch.</td></tr>`;
-      return;
-    }
     try {
       const response = await fetch(CONFIG.leaderboardApiUrl);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
