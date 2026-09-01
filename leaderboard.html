@@ -32,9 +32,8 @@
   --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 
-  --shell:1080px;
+  --shell:940px;
   --pad:clamp(22px,5vw,40px);
-  --measure:70ch;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
@@ -157,7 +156,7 @@ h1{
 .lede{
   font-size:clamp(18px,2.1vw,21px);line-height:1.5;
   margin:16px 0 0;color:var(--ink-soft);
-  max-width:640px;text-wrap:balance;
+  text-wrap:balance;
 }
 .lede em{font-style:normal;color:var(--ink)}
 .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:34px}
@@ -172,8 +171,8 @@ h2{
   font-size:clamp(26px,3.4vw,34px);letter-spacing:-.02em;
   margin:0;line-height:1.15;text-wrap:balance;
 }
-.sec-head .note{margin:10px 0 0;font-size:15.5px;color:var(--ink-soft);max-width:var(--measure)}
-.prose p{margin:0 0 1.1em;max-width:var(--measure);text-wrap:pretty}
+.sec-head .note{margin:10px 0 0;font-size:15.5px;color:var(--ink-soft)}
+.prose p{margin:0 0 1.1em;text-wrap:pretty}
 .prose p:last-child{margin-bottom:0}
 .prose em{font-style:normal;font-weight:600}
 .muted{color:var(--ink-soft)}
@@ -192,7 +191,7 @@ td.item{font-family:var(--f-display);font-weight:600;font-size:16px;letter-spaci
 td.when{font-family:var(--f-mono);font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
 tr.is-key td.item{color:var(--accent)}
 td.item .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
-.after{margin:16px 0 0;font-size:15px;color:var(--ink-soft);max-width:var(--measure)}
+.after{margin:16px 0 0;font-size:15px;color:var(--ink-soft)}
 @media (max-width:560px){
   /* stack each row (item over date) instead of forcing a sideways scroll */
   #dates table{min-width:0}
@@ -261,7 +260,7 @@ button.btn--ghost{border:1px solid var(--rule)}
 .links a:hover{padding-left:12px;background:var(--rule-soft)}
 .links .name{grid-column:1;grid-row:1;font-family:var(--f-display);font-weight:600;font-size:16.5px;letter-spacing:-.01em}
 .links .url{grid-column:2;grid-row:1;justify-self:end;font-family:var(--f-mono);font-size:12px;color:var(--accent);word-break:break-all}
-.links .desc{grid-column:1/-1;grid-row:2;color:var(--ink-soft);font-size:15.5px;max-width:var(--measure)}
+.links .desc{grid-column:1/-1;grid-row:2;color:var(--ink-soft);font-size:15.5px}
 @media (max-width:560px){
   .links a{grid-template-columns:1fr}
   .links .url{grid-column:1;grid-row:3;justify-self:start;margin-top:3px}
@@ -274,7 +273,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
   text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px;
 }
 .orgs{font-family:var(--f-display);font-weight:600;font-size:16px;margin:0 0 22px;line-height:1.5}
-.colophon{font-size:14px;color:var(--ink-soft);margin:0;max-width:var(--measure)}
+.colophon{font-size:14px;color:var(--ink-soft);margin:0}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
