@@ -28,6 +28,12 @@ Body:
 
 All fields are required.
 
+Successful response (`201 Created`):
+
+```json
+{"success":true,"message":"Result saved","id":"..."}
+```
+
 | Field | Type | Notes |
 | --- | --- | --- |
 | `teamName` | string | Team name |
