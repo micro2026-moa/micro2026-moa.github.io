@@ -159,14 +159,10 @@
       <section class="board" aria-labelledby="round-1-board-title">
         <div class="board-header">
           <div><h3 id="round-1-board-title">Leaderboard</h3><p id="summary">Loading verified benchmark results…</p></div>
-          <div class="filters">
-            <select id="task" aria-label="Filter by task"><option value="">All tasks</option></select>
-            <select id="scenario" aria-label="Filter by scenario"><option value="">All scenarios</option></select>
-          </div>
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Rank</th><th>Team</th><th>Task</th><th>Score</th><th>Throughput</th><th>Run time</th></tr></thead>
+            <thead><tr><th>Rank</th><th>Team</th><th>Kernel</th><th>Score</th><th>Buildability</th><th>Correctness</th><th>Performance</th></tr></thead>
             <tbody id="rows"></tbody>
           </table>
         </div>
@@ -179,8 +175,8 @@
         <div class="board-header"><div><h3 id="round-2-board-title">Leaderboard</h3><p>Round 2 results will be published when the round opens.</p></div></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Rank</th><th>Team</th><th>Task</th><th>Score</th><th>Throughput</th><th>Run time</th></tr></thead>
-            <tbody><tr><td class="empty" colspan="6"><strong>Coming soon</strong>Model Optimization leaderboard is not open yet.</td></tr></tbody>
+            <thead><tr><th>Rank</th><th>Team</th><th>Kernel</th><th>Score</th><th>Buildability</th><th>Correctness</th><th>Performance</th></tr></thead>
+            <tbody><tr><td class="empty" colspan="7"><strong>Coming soon</strong>Model Optimization leaderboard is not open yet.</td></tr></tbody>
           </table>
         </div>
       </section>
@@ -190,34 +186,20 @@
 <script>
   document.getElementById("status").textContent = CONFIG.statusText;
 
-  const state = { data: [], task: "", scenario: "" };
+  const state = { data: [] };
   const elements = {
     rows: document.getElementById("rows"), summary: document.getElementById("summary"),
-    task: document.getElementById("task"), scenario: document.getElementById("scenario"),
-  };
-  const primaryMetrics = {
-    Classification: ["accuracy", "Accuracy"], ObjectDetection: ["mAP_50_95", "mAP@0.5:0.95"],
-    SemanticSegmentation: ["mIOU", "mIoU"], LLM: ["f1", "F1"],
   };
   const escapeHtml = value => { const node = document.createElement("div"); node.textContent = value || ""; return node.innerHTML; };
   const number = (value, digits = 3) => Number(value || 0).toLocaleString(undefined, { maximumFractionDigits: digits });
-  const duration = ms => !ms ? "—" : `${Math.floor(ms / 60000)}m ${Math.round((ms % 60000) / 1000)}s`;
-  function setOptions(select, values, label) {
-    select.innerHTML = `<option value="">All ${label}</option>` + values.map(value => `<option>${escapeHtml(value)}</option>`).join("");
-  }
+  const result = value => value ? "Pass" : "Fail";
   function renderLeaderboard() {
-    const visible = state.data.filter(row => (!state.task || row.task === state.task) && (!state.scenario || row.scenario === state.scenario));
-    elements.summary.textContent = visible.length ? `${visible.length} verified result${visible.length === 1 ? "" : "s"} · ranked by task-specific score` : "No submitted results yet.";
-    if (!visible.length) { elements.rows.innerHTML = `<tr><td class="empty" colspan="6"><strong>No results to display</strong>Results submitted by AI-BMT will appear here automatically.</td></tr>`; return; }
-    const ranks = new Map();
-    elements.rows.innerHTML = visible.map(row => {
-      const group = `${row.task}:${row.scenario}`;
-      const rank = (ranks.get(group) || 0) + 1; ranks.set(group, rank);
-      const [scoreKey, scoreLabel] = primaryMetrics[row.task] || [row.scoreMetric || "score", row.scoreMetric || "Score"];
-      const original = row.metrics || {};
-      const score = Number(row.score ?? original[scoreKey]);
-      const throughput = original.samples_per_second;
-      return `<tr><td class="rank ${rank <= 3 ? "top" : ""}">${rank}</td><td><span class="team">${escapeHtml(row.teamName)}</span><span class="subline">${escapeHtml(row.benchmarkModel || "Model not provided")}</span></td><td><span class="tag">${escapeHtml(row.task)}</span><span class="subline">${escapeHtml(row.scenario)}</span></td><td class="metric">${number(score)} <small>${escapeHtml(scoreLabel)}</small></td><td>${throughput ? `${number(throughput, 1)} /s` : "—"}</td><td>${duration(row.durationMs)}</td></tr>`;
+    const visible = state.data;
+    elements.summary.textContent = visible.length ? `${visible.length} submitted result${visible.length === 1 ? "" : "s"} · ranked by performance` : "No submitted results yet.";
+    if (!visible.length) { elements.rows.innerHTML = `<tr><td class="empty" colspan="7"><strong>No results to display</strong>Results submitted by AI-BMT will appear here automatically.</td></tr>`; return; }
+    elements.rows.innerHTML = visible.map((row, index) => {
+      const rank = row.rank ?? index + 1;
+      return `<tr><td class="rank ${rank <= 3 ? "top" : ""}">${rank}</td><td><span class="team">${escapeHtml(row.teamName)}</span></td><td><span class="tag">${escapeHtml(row.kernelName)}</span></td><td class="metric">${number(row.score)}</td><td>${result(row.buildability)}</td><td>${result(row.correctness)}</td><td class="metric">${number(row.performance)}</td></tr>`;
     }).join("");
   }
   async function loadLeaderboard() {
@@ -225,16 +207,12 @@
       const response = await fetch(CONFIG.leaderboardApiUrl);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const payload = await response.json(); state.data = payload.data || [];
-      setOptions(elements.task, [...new Set(state.data.map(row => row.task))].sort(), "tasks");
-      setOptions(elements.scenario, [...new Set(state.data.map(row => row.scenario))].sort(), "scenarios");
       renderLeaderboard();
     } catch (_) {
       elements.summary.textContent = "Leaderboard service is temporarily unavailable.";
       elements.rows.innerHTML = `<tr><td class="empty" colspan="6"><strong>Unable to load results</strong>Please try again shortly.</td></tr>`;
     }
   }
-  elements.task.addEventListener("change", event => { state.task = event.target.value; renderLeaderboard(); });
-  elements.scenario.addEventListener("change", event => { state.scenario = event.target.value; renderLeaderboard(); });
   loadLeaderboard();
 </script>
 </body>
