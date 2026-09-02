@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#060607">
-<title>NPU Model Optimization Competition</title>
-<meta name="description" content="Optimize the inference of Gemma 4 12B, a multimodal LLM, on FuriosaAI's RNGD. MOA Workshop at MICRO 2026, Athens, Greece.">
-<meta property="og:title" content="NPU Model Optimization Competition — MICRO 2026 MOA">
-<meta property="og:description" content="Optimize the inference of Gemma 4 12B, a multimodal LLM, on FuriosaAI's RNGD. MOA Workshop at MICRO 2026, Athens, Greece.">
+<title>FAQ — NPU Model Optimization Competition</title>
+<meta name="description" content="Frequently asked questions about the NPU Model Optimization Competition. MOA Workshop at MICRO 2026, Athens, Greece.">
+<meta property="og:title" content="FAQ — NPU Model Optimization Competition">
+<meta property="og:description" content="Frequently asked questions about the NPU Model Optimization Competition. MOA Workshop at MICRO 2026, Athens, Greece.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060607'/%3E%3Crect x='10' y='10' width='12' height='12' fill='%23C81A20'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -243,6 +243,39 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 }
 .orgs{font-family:var(--f-display);font-weight:600;font-size:16px;margin:0 0 22px;line-height:1.5}
 .colophon{font-size:14px;color:var(--ink-soft);margin:0}
+
+/* ---------- faq ---------- */
+.faq-group + .faq-group{margin-top:clamp(36px,5vw,52px)}
+.faq-cat{
+  font-family:var(--f-mono);font-size:12px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  margin:0 0 6px;
+}
+.faq{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-mid)}
+.faq > li{border-bottom:1px solid var(--rule-soft)}
+.faq details{padding:0}
+.faq summary{
+  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:18px;
+  padding:18px 4px;cursor:pointer;list-style:none;
+  font-family:var(--f-display);font-weight:600;font-size:16.5px;letter-spacing:-.01em;
+  transition:padding-left .18s ease, background .18s ease;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{padding-left:12px;background:rgba(255,255,255,.04)}
+.faq summary .mark{
+  font-family:var(--f-mono);font-weight:400;font-size:16px;color:var(--ink-soft);
+  transition:transform .18s ease;
+}
+.faq details[open] summary .mark{transform:rotate(45deg);color:var(--accent)}
+.faq details[open] summary{color:var(--accent-ink)}
+.faq .answer{padding:2px 4px 20px;color:#CFCFD4;font-size:15.5px}
+.faq .answer p{margin:0 0 1em}
+.faq .answer p:last-child{margin-bottom:0}
+.faq-updated{
+  margin:14px 0 0;
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *{transition:none!important;animation:none!important}
@@ -252,13 +285,13 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 <body>
 <header class="masthead">
   <div class="shell">
-    <a class="brand" href="#top">MOA<span>·</span>Competition</a>
+    <a class="brand" href="index.html">MOA<span>·</span>Competition</a>
     <nav>
-      <a class="navlink" href="#overview">Overview</a>
-      <a class="navlink" href="#dates">Dates</a>
-      <a class="navlink" href="#prizes">Prizes</a>
-      <a class="navlink" href="#resources">Resources</a>
-      <a class="navlink" href="faq.html">FAQ</a>
+      <a class="navlink" href="index.html#overview">Overview</a>
+      <a class="navlink" href="index.html#dates">Dates</a>
+      <a class="navlink" href="index.html#prizes">Prizes</a>
+      <a class="navlink" href="index.html#resources">Resources</a>
+      <a class="navlink" href="faq.html" aria-current="page">FAQ</a>
       <span class="navsep" aria-hidden="true"></span>
       <a class="btn btn--ghost" href="leaderboard.html">Leaderboard</a>
       <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScOBksLrh4AW5ApaWLEEAdY1pXb4nwV6N1_DFuDWO8kCRc_4A/viewform" target="_blank" rel="noopener">Register</a>
@@ -268,87 +301,35 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 <main id="top">
   <div class="hero shell">
     <p class="eyebrow"><span><a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a></span> · <span>November 1, 2026</span> · <span>Athens, Greece</span></p>
-    <h1>NPU Model Optimization Competition</h1>
-    <p class="lede">Optimize the inference of <em>Gemma 4 12B</em>, a multimodal LLM, on <em>FuriosaAI's <a href="https://furiosa.ai/rngd" target="_blank" rel="noopener">RNGD</a></em>.</p>
-    <div class="hero-actions">
-      <a class="btn btn--lg" href="https://docs.google.com/forms/d/e/1FAIpQLScOBksLrh4AW5ApaWLEEAdY1pXb4nwV6N1_DFuDWO8kCRc_4A/viewform" target="_blank" rel="noopener">Register <span class="arrow">→</span></a>
-    </div>
+    <h1>FAQ</h1>
+    <p class="lede">Frequently asked questions about the <em>NPU Model Optimization Competition</em>.</p>
+    <p class="faq-updated">Last modified: 2026-09-02</p>
   </div>
-  <section id="overview">
+  <section id="faq">
     <div class="shell">
-      <div class="sec-head">
-        <h2>Overview</h2>
+      <div class="faq-group" id="registration">
+        <div class="sec-head">
+          <h2>Registration</h2>
+        </div>
+        <ul class="faq">
+          <li>
+            <details>
+              <summary>Is team participation allowed? If so, how many people can be on a team?<span class="mark">+</span></summary>
+              <div class="answer">
+                <p>Yes. You may participate individually or as a team. Only one entry may be submitted per team or individual.</p>
+              </div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Is participation limited to college or graduate students?<span class="mark">+</span></summary>
+              <div class="answer">
+                <p>This competition is designed to enhance the capabilities of undergraduate and graduate students, so participation is limited to those with student status. If you are currently enrolled as a student, even while also working (e.g., on a degree dispatch program), you are eligible to participate. However, if you have already graduated and are no longer a student, unfortunately, you would not be eligible.</p>
+              </div>
+            </details>
+          </li>
+        </ul>
       </div>
-      <div class="prose">
-        <p>Participants start from a baseline implementation of Gemma 4 12B written for RNGD with the furiosa-opt toolchain and improve its inference performance. Participants do not need their own RNGD hardware: submitted programs are run on FuriosaAI's RNGD servers through FuriosaAI Arena.</p>
-        <p>The competition is held in two rounds. The <em>Kernel Optimization Round</em> targets three decoder-layer kernels of the model — the QKV projection, the attention output projection and the feed-forward block. Participants with the highest results advance to the <em>Model Optimization Round</em>, in which the full model is optimized end to end.</p>
-        <p>In both rounds, submissions must pass a correctness check and are then ranked by performance. Detailed rules and evaluation criteria are specified in the baseline repository.</p>
-      </div>
-    </div>
-  </section>
-  <section id="dates">
-    <div class="shell">
-      <div class="sec-head">
-        <h2>Important dates</h2>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th scope="col">Item</th><th scope="col">Date</th></tr>
-          </thead>
-          <tbody>
-            <tr class="is-key"><td class="item">Registration Period</td><td class="when">Sep 1 – Sep 15, 2026</td></tr>
-            <tr><td class="item">Kernel Optimization Round</td><td class="when">Sep 1 – Sep 25, 2026</td></tr>
-            <tr><td class="item">Finalists Announcement</td><td class="when">Sep 30, 2026</td></tr>
-            <tr><td class="item">Model Optimization Round</td><td class="when">Oct 1 – Oct 25, 2026</td></tr>
-            <tr><td class="item">Award Ceremony <span class="tba">(time and venue TBA)</span></td><td class="when">Nov 1, 2026</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="after">The award ceremony takes place at the MOA Workshop, held on November 1, 2026 at MICRO 2026 in Athens, Greece.</p>
-    </div>
-  </section>
-  <section id="prizes">
-    <div class="shell">
-      <div class="sec-head">
-        <h2>Prizes</h2>
-      </div>
-      <ul class="rows">
-        <li><span class="place">1st place</span><span class="amount">€5,000</span></li>
-        <li><span class="place">2nd place</span><span class="amount">€3,000</span></li>
-        <li><span class="place">3rd place</span><span class="amount">€2,000</span></li>
-      </ul>
-      <p class="after">Winners must attend the on-site award ceremony in Athens.</p>
-    </div>
-  </section>
-  <section id="resources">
-    <div class="shell">
-      <div class="sec-head">
-        <h2>Resources</h2>
-      </div>
-      <ul class="links">
-        <li>
-          <a href="https://github.com/HoseongLee/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">
-            <span class="name">Baseline repository</span>
-            <span class="desc">Gemma 4 12B baseline for RNGD. The README also serves as the competition guide. It specifies the target kernels, permitted changes and correctness tolerances, and explains how to set up the toolchain, optimize a kernel and run the grading test.</span>
-            <span class="url">github.com/HoseongLee/furiosa-opt-gemma4-12B</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://developer.furiosa.ai/furiosa-opt/book/" target="_blank" rel="noopener">
-            <span class="name">furiosa-opt documentation</span>
-            <span class="desc">Programming guide for the furiosa-opt toolchain in which the baseline is written. Covers setup, the vISA programming model, scheduling, and development tools such as the schedule viewer.</span>
-            <span class="url">developer.furiosa.ai/furiosa-opt/book</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://arena.furiosa.ai/" target="_blank" rel="noopener">
-            <span class="name">FuriosaAI Arena</span>
-            <span class="desc">Job scheduler for FuriosaAI's shared RNGD servers, on which submitted programs are executed. Jobs are submitted with the rngd command-line client; setup instructions are in the baseline repository. Access is provided to registered participants.</span>
-            <span class="url">arena.furiosa.ai</span>
-          </a>
-        </li>
-      </ul>
     </div>
   </section>
 </main>
