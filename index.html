@@ -150,7 +150,30 @@ h2{
 .prose p{margin:0 0 1.15em;text-wrap:pretty;color:#CFCFD4}
 .prose p:last-child{margin-bottom:0}
 .prose em{font-style:normal;font-weight:600;color:var(--ink)}
+.prose a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:rgba(255,255,255,.35)}
+.prose a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
 .muted{color:var(--ink-soft)}
+code{font-family:var(--f-mono);font-size:.9em;background:rgba(255,255,255,.07);padding:.1em .35em;border-radius:3px}
+/* ---------- getting started ---------- */
+.steps{list-style:none;margin:0;padding:0;counter-reset:step;border-top:1px solid var(--rule-mid)}
+.steps li{
+  counter-increment:step;
+  display:grid;grid-template-columns:56px 1fr;gap:4px 18px;
+  padding:20px 4px;border-bottom:1px solid var(--rule-soft);
+}
+.steps li::before{
+  content:"0" counter(step);
+  grid-row:1/span 2;
+  font-family:var(--f-mono);font-size:20px;font-weight:700;
+  color:var(--accent);line-height:1.3;
+}
+.steps .step-name{font-family:var(--f-display);font-weight:600;font-size:16.5px;letter-spacing:-.01em}
+.steps .step-desc{grid-column:2;color:var(--ink-soft);font-size:15px;margin:0}
+.steps .step-desc a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:rgba(255,255,255,.25)}
+.steps .step-desc a:hover{text-decoration-color:var(--accent)}
+@media (max-width:560px){
+  .steps li{grid-template-columns:44px 1fr}
+}
 /* ---------- schedule ---------- */
 .table-wrap{overflow-x:auto;border:1px solid var(--rule-mid);border-radius:4px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;min-width:520px}
@@ -166,6 +189,8 @@ td.when{font-family:var(--f-mono);font-size:13.5px;color:#CFCFD4;font-variant-nu
 tr.is-key td.item{color:var(--accent)}
 td.item .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 .after{margin:16px 0 0;font-size:14.5px;color:var(--ink-soft)}
+.after a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:rgba(255,255,255,.3)}
+.after a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
 @media (max-width:560px){
   #dates table{min-width:0}
   #dates thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -255,6 +280,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     <a class="brand" href="#top">MOA<span>·</span>Competition</a>
     <nav>
       <a class="navlink" href="#overview">Overview</a>
+      <a class="navlink" href="#start">Get started</a>
       <a class="navlink" href="#dates">Dates</a>
       <a class="navlink" href="#prizes">Prizes</a>
       <a class="navlink" href="#resources">Resources</a>
@@ -272,6 +298,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     <p class="lede">Optimize the inference of <em>Gemma 4 12B</em>, a multimodal LLM, on <em>FuriosaAI's <a href="https://furiosa.ai/rngd" target="_blank" rel="noopener">RNGD</a></em>.</p>
     <div class="hero-actions">
       <a class="btn btn--lg" href="https://docs.google.com/forms/d/e/1FAIpQLScOBksLrh4AW5ApaWLEEAdY1pXb4nwV6N1_DFuDWO8kCRc_4A/viewform" target="_blank" rel="noopener">Register <span class="arrow">→</span></a>
+      <a class="btn btn--lg btn--ghost" href="#start">How to get started <span class="arrow">↓</span></a>
     </div>
   </div>
   <section id="overview">
@@ -280,10 +307,36 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
         <h2>Overview</h2>
       </div>
       <div class="prose">
-        <p>Participants start from a baseline implementation of Gemma 4 12B written for RNGD with the furiosa-opt toolchain and improve its inference performance. Participants do not need their own RNGD hardware: submitted programs are run on FuriosaAI's RNGD servers through FuriosaAI Arena.</p>
-        <p>The competition is held in two rounds. The <em>Kernel Optimization Round</em> targets three decoder-layer kernels of the model — the QKV projection, the attention output projection and the feed-forward block. Participants with the highest results advance to the <em>Model Optimization Round</em>, in which the full model is optimized end to end.</p>
-        <p>In both rounds, submissions must pass a correctness check and are then ranked by performance. Detailed rules and evaluation criteria are specified in the baseline repository.</p>
+        <p>Participants start from a baseline implementation of Gemma 4 12B written for <a href="https://furiosa.ai/rngd" target="_blank" rel="noopener">RNGD</a> with the furiosa-opt toolchain and improve its inference performance. Participants do not need their own RNGD hardware: submitted programs are run on FuriosaAI's RNGD servers through FuriosaAI Arena.</p>
+        <p>The competition is held in two rounds. The <em>Kernel Optimization Round</em> targets three decoder-layer kernels of the model — the QKV projection, the attention output projection and the feed-forward block. Participants with the highest results advance to the <em>Model Optimization Round</em>, in which the full model is optimized end to end. The top three teams will have the opportunity to present their work at the MOA Workshop in Athens.</p>
+        <p>In both rounds, submissions must pass a correctness check and are then ranked by performance. Detailed rules and evaluation criteria are specified in the <a href="https://github.com/HoseongLee/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">baseline repository</a>.</p>
       </div>
+    </div>
+  </section>
+  <section id="start">
+    <div class="shell">
+      <div class="sec-head">
+        <h2>Getting started</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-name">Register</span>
+          <p class="step-desc">Fill out the <a href="https://docs.google.com/forms/d/e/1FAIpQLScOBksLrh4AW5ApaWLEEAdY1pXb4nwV6N1_DFuDWO8kCRc_4A/viewform" target="_blank" rel="noopener">registration form</a> by September 15, 2026.</p>
+        </li>
+        <li>
+          <span class="step-name">Set up the baseline</span>
+          <p class="step-desc">Clone the <a href="https://github.com/HoseongLee/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">baseline repository</a>, a working implementation of Gemma 4 12B for RNGD. Its README is the competition guide: it covers the toolchain setup, the three target kernels, the permitted changes and the grading test. OPTIMIZATION.md walks through the optimization workflow. The <a href="https://developer.furiosa.ai/furiosa-opt/book/" target="_blank" rel="noopener">furiosa-opt documentation</a> is the companion programming guide, covering everything from the vISA programming model to scheduling and tuning.</p>
+        </li>
+        <li>
+          <span class="step-name">Optimize and test</span>
+          <p class="step-desc">Improve the target kernels and check your work on real hardware as you go: the <code>rngd</code> command-line client runs your code on <a href="https://arena.furiosa.ai/" target="_blank" rel="noopener">FuriosaAI Arena</a>, the RNGD evaluation server. Arena access is provided to registered participants.</p>
+        </li>
+        <li>
+          <span class="step-name">Submit</span>
+          <p class="step-desc">When you are ready, submit your entry as described in the baseline repository's README. Submissions that pass the correctness check are ranked by performance on the <a href="leaderboard.html">leaderboard</a>, and top performers in the Kernel Optimization Round advance to the Model Optimization Round.</p>
+        </li>
+      </ol>
+      <p class="after">Technical questions are best asked on the <a href="https://forums.furiosa.ai/" target="_blank" rel="noopener">FuriosaAI forums</a>, where answers are shared with all participants.</p>
     </div>
   </section>
   <section id="dates">
