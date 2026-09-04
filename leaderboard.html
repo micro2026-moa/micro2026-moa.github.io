@@ -355,9 +355,7 @@ function load(){
   fetch(API_URL, { signal: controller.signal })
     .then(response => { if(!response.ok) throw Error("HTTP " + response.status); return response.json(); })
     .then(payload => renderResults(payload.data || []))
-    .catch(error => renderError(error && error.name === "AbortError"
-      ? `The results server did not respond within ${TIMEOUT_MS / 1000} seconds.`
-      : "Please try again shortly."))
+    .catch(() => renderError("Please try again shortly."))
     .finally(() => clearTimeout(timer));
 }
 
