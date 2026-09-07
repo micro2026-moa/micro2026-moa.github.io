@@ -174,6 +174,21 @@ code{font-family:var(--f-mono);font-size:.9em;background:rgba(255,255,255,.07);p
 @media (max-width:560px){
   .steps li{grid-template-columns:44px 1fr}
 }
+.callout{
+  margin:0 0 clamp(22px,3.2vw,30px);
+  padding:20px 22px;
+  background:var(--surface);
+  border:1px solid var(--rule-mid);
+  border-left:3px solid var(--accent);
+  border-radius:4px;
+}
+.callout-label{
+  margin:0 0 6px;
+  font-family:var(--f-mono);font-size:11.5px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+}
+.callout-body{margin:0;font-size:15.5px;color:#CFCFD4;text-wrap:pretty}
+.callout-body .lead{color:var(--ink);font-weight:600}
 /* ---------- schedule ---------- */
 .table-wrap{overflow-x:auto;border:1px solid var(--rule-mid);border-radius:4px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;min-width:520px}
@@ -316,6 +331,10 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     <div class="shell">
       <div class="sec-head">
         <h2>Getting started</h2>
+      </div>
+      <div class="callout">
+        <p class="callout-label">Tutorial session</p>
+        <p class="callout-body"><span class="lead">We are preparing a tutorial session for participants.</span> The date and details will be announced here soon.</p>
       </div>
       <ol class="steps">
         <li>
