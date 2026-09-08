@@ -186,7 +186,7 @@ td.item .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 }
 .board-note{margin:5px 0 0;font-size:14px;color:var(--ink-soft)}
 .board .table-wrap{border:0;border-radius:0;background:transparent}
-.board table{min-width:900px}
+.board table{min-width:1000px}
 .board tbody tr:hover{background:rgba(255,255,255,.04)}
 .board .empty{
   margin:0;padding:30px 20px;text-align:center;color:var(--ink-soft);font-size:14.5px;
@@ -331,8 +331,8 @@ function renderResults(data){
     ? `<p class="board-note">${rows.length} team${rows.length === 1 ? "" : "s"} · ranked by geometric-mean speedup</p>`
     : "";
   const inner = rows.length
-    ? `<div class="table-wrap"><table><thead><tr><th scope="col">Rank</th><th scope="col">Team</th><th scope="col">QKV Projection<br>(cycles)</th><th scope="col">Attention Output<br>(cycles)</th><th scope="col">Decoder FFN<br>(cycles)</th><th scope="col">Score<br>(speedup)</th></tr></thead><tbody>${
-        rows.map((row,index) => { const values = row.cycles || {}; return `<tr><td class="rank">${row.rank ?? index + 1}</td><td class="item">${esc(row.teamName)}</td><td class="score">${cycles(row.qkvCycles ?? values["ops::sliding_project_qkv"])}</td><td class="score">${cycles(row.attentionCycles ?? values["ops::sliding_attention_output"])}</td><td class="score">${cycles(row.ffnCycles ?? values["ops::decoder_feedforward"])}</td><td class="score">${score(row.score)}</td></tr>`; }).join("")
+    ? `<div class="table-wrap"><table><thead><tr><th scope="col">Rank</th><th scope="col">Team</th><th scope="col">Submission</th><th scope="col">QKV Projection<br>(cycles)</th><th scope="col">Attention Output<br>(cycles)</th><th scope="col">Decoder FFN<br>(cycles)</th><th scope="col">Score<br>(speedup)</th></tr></thead><tbody>${
+        rows.map((row,index) => { const values = row.cycles || {}; const code = row.submissionCode || row.submissionId?.slice(-8) || "—"; return `<tr><td class="rank">${row.rank ?? index + 1}</td><td class="item">${esc(row.teamName)}</td><td class="score" title="${esc(row.submissionId || code)}">#${esc(code)}</td><td class="score">${cycles(row.qkvCycles ?? values["ops::sliding_project_qkv"])}</td><td class="score">${cycles(row.attentionCycles ?? values["ops::sliding_attention_output"])}</td><td class="score">${cycles(row.ffnCycles ?? values["ops::decoder_feedforward"])}</td><td class="score">${score(row.score)}</td></tr>`; }).join("")
       }</tbody></table></div>`
     : `<p class="empty">No completed submissions yet.</p>`;
   boards.innerHTML = `<div class="board"><div class="board-head"><h3>Leaderboard</h3>${note}</div>${inner}</div>`;
