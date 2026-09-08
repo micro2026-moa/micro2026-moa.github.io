@@ -186,7 +186,7 @@ td.item .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 }
 .board-note{margin:5px 0 0;font-size:14px;color:var(--ink-soft)}
 .board .table-wrap{border:0;border-radius:0;background:transparent}
-.board table{min-width:720px}
+.board table{min-width:900px}
 .board tbody tr:hover{background:rgba(255,255,255,.04)}
 .board .empty{
   margin:0;padding:30px 20px;text-align:center;color:var(--ink-soft);font-size:14.5px;
@@ -281,7 +281,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <div class="round">
         <div class="sec-head">
           <h2><span class="n">Round 1.</span> Kernel Optimization</h2>
-          <p class="note">Each board shows the best valid result from each team, ranked by performance.</p>
+          <p class="note">Each team's best valid submission. Score is the geometric mean of its per-kernel speedups over the baseline.</p>
         </div>
 
         <div id="kernel-boards" aria-live="polite"></div>
@@ -316,31 +316,26 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 <script>
 const API_URL = "https://micro2026-api.duckdns.org/api/leaderboard";
 const TIMEOUT_MS = 8000;
-const KERNELS = ["ops::sliding_project_qkv","ops::sliding_attention_output","ops::decoder_feedforward"];
 const boards = document.getElementById("kernel-boards");
 const esc = value => { const el = document.createElement("div"); el.textContent = value ?? ""; return el.innerHTML; };
-const num = value => Number(value || 0).toLocaleString(undefined,{maximumFractionDigits:3});
-const flag = ok => `<td class="${ok ? "pass" : "fail"}">${ok ? "Pass" : "Fail"}</td>`;
-
-const board = (kernel, note, inner) => `<div class="board"><div class="board-head"><h3>${esc(kernel)}</h3>${note}</div>${inner}</div>`;
+const cycles = value => Number.isFinite(Number(value)) ? Math.round(Number(value)).toLocaleString() : "—";
+const score = value => Number.isFinite(Number(value)) ? `${Number(value).toLocaleString(undefined,{maximumFractionDigits:3})}×` : "—";
 
 function renderLoading(){
-  boards.innerHTML = KERNELS.map(kernel => board(kernel, "", `<p class="empty">Loading results…</p>`)).join("");
+  boards.innerHTML = `<div class="board"><p class="empty">Loading results…</p></div>`;
 }
 
 function renderResults(data){
-  boards.innerHTML = KERNELS.map(kernel => {
-    const rows = data.filter(row => row.kernelName === kernel);
-    const note = rows.length
-      ? `<p class="board-note">${rows.length} team${rows.length === 1 ? "" : "s"} · ranked by performance</p>`
-      : "";
-    const inner = rows.length
-      ? `<div class="table-wrap"><table><thead><tr><th scope="col">Rank</th><th scope="col">Team</th><th scope="col">Score</th><th scope="col">Buildability</th><th scope="col">Correctness</th><th scope="col">Performance</th></tr></thead><tbody>${
-          rows.map((row,index) => `<tr><td class="rank">${row.rank ?? index+1}</td><td class="item">${esc(row.teamName)}</td><td class="score">${num(row.score)}</td>${flag(row.buildability)}${flag(row.correctness)}<td class="score">${num(row.performance)}</td></tr>`).join("")
-        }</tbody></table></div>`
-      : `<p class="empty">No results submitted yet.</p>`;
-    return board(kernel, note, inner);
-  }).join("");
+  const rows = data.filter(row => row.qkvCycles !== undefined || row.cycles?.["ops::sliding_project_qkv"] !== undefined);
+  const note = rows.length
+    ? `<p class="board-note">${rows.length} team${rows.length === 1 ? "" : "s"} · ranked by geometric-mean speedup</p>`
+    : "";
+  const inner = rows.length
+    ? `<div class="table-wrap"><table><thead><tr><th scope="col">Rank</th><th scope="col">Team</th><th scope="col">QKV Projection<br>(cycles)</th><th scope="col">Attention Output<br>(cycles)</th><th scope="col">Decoder FFN<br>(cycles)</th><th scope="col">Score<br>(speedup)</th></tr></thead><tbody>${
+        rows.map((row,index) => { const values = row.cycles || {}; return `<tr><td class="rank">${row.rank ?? index + 1}</td><td class="item">${esc(row.teamName)}</td><td class="score">${cycles(row.qkvCycles ?? values["ops::sliding_project_qkv"])}</td><td class="score">${cycles(row.attentionCycles ?? values["ops::sliding_attention_output"])}</td><td class="score">${cycles(row.ffnCycles ?? values["ops::decoder_feedforward"])}</td><td class="score">${score(row.score)}</td></tr>`; }).join("")
+      }</tbody></table></div>`
+    : `<p class="empty">No completed submissions yet.</p>`;
+  boards.innerHTML = `<div class="board"><div class="board-head"><h3>Leaderboard</h3>${note}</div>${inner}</div>`;
 }
 
 function renderError(message){
