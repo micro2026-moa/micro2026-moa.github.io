@@ -328,15 +328,12 @@ function renderLoading(){
 
 function renderResults(data){
   const rows = data.filter(row => row.qkvCycles !== undefined || row.cycles?.["ops::sliding_project_qkv"] !== undefined);
-  const note = rows.length
-    ? `<p class="board-note">${rows.length} team${rows.length === 1 ? "" : "s"} · ranked by geometric-mean speedup</p>`
-    : "";
   const inner = rows.length
     ? `<div class="table-wrap"><table><thead><tr><th scope="col">Rank</th><th scope="col">Team</th><th scope="col">Submission</th><th scope="col">QKV Projection<br>(cycles)</th><th scope="col">Attention Output<br>(cycles)</th><th scope="col">Decoder FFN<br>(cycles)</th><th scope="col">Score<br>(speedup)</th></tr></thead><tbody>${
         rows.map((row,index) => { const values = row.cycles || {}; const code = row.submissionCode || row.submissionId?.slice(-8) || "—"; return `<tr><td class="rank">${row.rank ?? index + 1}</td><td class="item">${esc(row.teamName)}</td><td class="score" title="${esc(row.submissionId || code)}">#${esc(code)}</td><td class="score">${cycles(row.qkvCycles ?? values["ops::sliding_project_qkv"])}</td><td class="score">${cycles(row.attentionCycles ?? values["ops::sliding_attention_output"])}</td><td class="score">${cycles(row.ffnCycles ?? values["ops::decoder_feedforward"])}</td><td class="score">${score(row.score)}</td></tr>`; }).join("")
       }</tbody></table></div>`
     : `<p class="empty">No completed submissions yet.</p>`;
-  boards.innerHTML = `<div class="board"><div class="board-head"><h3>Leaderboard</h3>${note}</div>${inner}</div>`;
+  boards.innerHTML = `<div class="board"><div class="board-head"><h3>Leaderboard</h3></div>${inner}</div>`;
 }
 
 function renderError(message){
