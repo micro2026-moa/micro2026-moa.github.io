@@ -323,7 +323,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <div class="prose">
         <p>Participants start from a baseline implementation of Gemma 4 12B written for <a href="https://furiosa.ai/rngd" target="_blank" rel="noopener">RNGD</a> with the furiosa-opt toolchain and improve its inference performance. Participants do not need their own RNGD hardware: submitted programs are run on FuriosaAI's RNGD servers through FuriosaAI Arena.</p>
         <p>The competition is held in two rounds. The <em>Kernel Optimization Round</em> targets three decoder-layer kernels of the model — the QKV projection, the attention output projection and the feed-forward block. Participants with the highest results advance to the <em>Model Optimization Round</em>, in which the full model is optimized end to end. The top three teams will have the opportunity to present their work at the MOA Workshop in Athens.</p>
-        <p>In both rounds, submissions must pass a correctness check and are then ranked by performance. Detailed rules and evaluation criteria are specified in the <a href="https://github.com/HoseongLee/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">baseline repository</a>.</p>
+        <p>In both rounds, submissions must pass a correctness check and are then ranked by performance. Detailed rules and evaluation criteria are specified in the <a href="https://github.com/micro2026-moa/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">baseline repository</a>.</p>
       </div>
     </div>
   </section>
@@ -343,7 +343,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
         </li>
         <li>
           <span class="step-name">Set up the baseline</span>
-          <p class="step-desc">Clone the <a href="https://github.com/HoseongLee/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">baseline repository</a>, a working implementation of Gemma 4 12B for RNGD. Its README is the competition guide: it covers the toolchain setup, the three target kernels, the permitted changes and the grading test. OPTIMIZATION.md walks through the optimization workflow. The <a href="https://developer.furiosa.ai/furiosa-opt/book/" target="_blank" rel="noopener">furiosa-opt documentation</a> is the companion programming guide, covering everything from the vISA programming model to scheduling and tuning.</p>
+          <p class="step-desc">Clone the <a href="https://github.com/micro2026-moa/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">baseline repository</a>, a working implementation of Gemma 4 12B for RNGD. Its README is the competition guide: it covers the toolchain setup, the three target kernels, the permitted changes and the grading test. OPTIMIZATION.md walks through the optimization workflow. The <a href="https://developer.furiosa.ai/furiosa-opt/book/" target="_blank" rel="noopener">furiosa-opt documentation</a> is the companion programming guide, covering everything from the vISA programming model to scheduling and tuning.</p>
         </li>
         <li>
           <span class="step-name">Optimize and test</span>
@@ -399,10 +399,10 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       </div>
       <ul class="links">
         <li>
-          <a href="https://github.com/HoseongLee/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">
+          <a href="https://github.com/micro2026-moa/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">
             <span class="name">Baseline repository</span>
             <span class="desc">Gemma 4 12B baseline for RNGD. The README also serves as the competition guide. It specifies the target kernels, permitted changes and correctness tolerances, and explains how to set up the toolchain, optimize a kernel and run the grading test.</span>
-            <span class="url">github.com/HoseongLee/furiosa-opt-gemma4-12B</span>
+            <span class="url">github.com/micro2026-moa/furiosa-opt-gemma4-12B</span>
           </a>
         </li>
         <li>
