@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#060607">
+<script>(function(){try{if(localStorage.getItem("moa-theme")==="light"){document.documentElement.setAttribute("data-theme","light");var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#F7F7F5");}}catch(e){}})();</script>
 <title>Leaderboard — NPU Model Optimization Competition</title>
 <meta name="description" content="Verified results for each round of the NPU Model Optimization Competition. MOA Workshop at MICRO 2026, Athens, Greece.">
 <meta property="og:title" content="Leaderboard — NPU Model Optimization Competition">
@@ -37,7 +38,56 @@
   --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --shell:940px;
   --pad:clamp(22px,5vw,40px);
+  --ink-body:#CFCFD4;
+  --ghost-line:rgba(255,255,255,.32);
+  --ghost-hover:rgba(255,255,255,.08);
+  --underline:rgba(255,255,255,.35);
+  --underline-mid:rgba(255,255,255,.3);
+  --underline-soft:rgba(255,255,255,.25);
+  --hover:rgba(255,255,255,.04);
+  --code-bg:rgba(255,255,255,.07);
+  --glow-a:rgba(197,15,25,.38);
+  --glow-b:rgba(197,15,25,.10);
+  --glow-c:rgba(255,60,64,.10);
+  --logo-snu:var(--ink);
+  --logo-furiosa:var(--ink);
+  --logo-opacity:.88;
+  --logo-opacity-hover:1;
   color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --ink:#131316;
+  --ink-body:#3A3A42;
+  --ink-soft:#62626A;
+  --ground:#F7F7F5;
+  --surface:#FFFFFF;
+  --rule:#BDBDC3;
+  --rule-mid:#D6D6DB;
+  --rule-soft:#E6E6E9;
+  --accent:#C81A20;
+  --accent-ink:#B01217;
+  --accent-wash:#FBE9EA;
+  --red-deep:#A30F14;
+  --red-btn:#C81A20;
+  --ok:#1E7F45;
+  --warm:#8A5F1C;
+  --warm-wash:#F6EEDF;
+  --shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px -18px rgba(0,0,0,.18);
+  --ghost-line:rgba(0,0,0,.2);
+  --ghost-hover:rgba(0,0,0,.05);
+  --underline:rgba(0,0,0,.28);
+  --underline-mid:rgba(0,0,0,.24);
+  --underline-soft:rgba(0,0,0,.2);
+  --hover:rgba(0,0,0,.035);
+  --code-bg:rgba(0,0,0,.06);
+  --glow-a:rgba(214,34,42,.13);
+  --glow-b:rgba(214,34,42,.04);
+  --glow-c:rgba(255,80,84,.05);
+  --logo-snu:#223786;
+  --logo-furiosa:#E31602;
+  --logo-opacity:1;
+  --logo-opacity-hover:.78;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -77,11 +127,30 @@ a{color:inherit}
 .masthead nav a.navlink{color:var(--ink-soft);text-decoration:none}
 .masthead nav a.navlink:hover{color:var(--ink)}
 .navsep{width:1px;height:16px;background:var(--rule-mid);margin:0 2px}
-@media (max-width:760px){ .masthead nav .navlink, .masthead nav .navsep{display:none} }
+.theme-toggle{
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+  width:34px;height:34px;padding:0;border-radius:3px;cursor:pointer;
+  background:transparent;color:var(--ink-soft);border:1px solid var(--ghost-line);
+  transition:background .15s ease,color .15s ease;
+}
+.theme-toggle:hover{background:var(--ghost-hover);color:var(--ink)}
+.theme-toggle svg{display:block;width:16px;height:16px}
+.theme-toggle .i-moon{display:none}
+:root[data-theme="light"] .theme-toggle .i-sun{display:none}
+:root[data-theme="light"] .theme-toggle .i-moon{display:block}
+@media (max-width:900px){ .masthead nav .navlink, .masthead nav .navsep{display:none} }
 @media (max-width:520px){
   .masthead .shell{gap:12px}
   .masthead nav{gap:8px}
   .masthead nav .btn{padding:.5em .8em;font-size:12.5px}
+}
+@media (max-width:420px){
+  .masthead .shell{gap:10px}
+  .brand{font-size:11px;letter-spacing:.08em}
+  .masthead nav{gap:6px}
+  .masthead nav .btn{padding:.5em .62em;font-size:12px}
+  .theme-toggle{width:30px;height:30px}
+  .theme-toggle svg{width:15px;height:15px}
 }
 .btn{
   display:inline-flex;align-items:center;gap:.5em;
@@ -96,14 +165,14 @@ a{color:inherit}
 .btn--lg{font-size:17px;padding:.8em 1.5em;border-radius:4px}
 .btn--ghost{
   background:transparent;color:var(--ink);
-  border:1px solid rgba(255,255,255,.32);font-weight:500;
+  border:1px solid var(--ghost-line);font-weight:500;
 }
-.btn--ghost:hover{background:rgba(255,255,255,.08);color:var(--ink)}
+.btn--ghost:hover{background:var(--ghost-hover);color:var(--ink)}
 .btn--ghost.is-current{border-color:var(--accent);color:var(--accent)}
 .btn .arrow{font-family:var(--f-mono);font-weight:400}
 .eyebrow a, .lede a, .colophon a{
   color:inherit;text-decoration:underline;text-underline-offset:3px;
-  text-decoration-thickness:1px;text-decoration-color:rgba(255,255,255,.35);
+  text-decoration-thickness:1px;text-decoration-color:var(--underline);
 }
 .eyebrow a:hover, .lede a:hover, .colophon a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
 /* ---------- hero ---------- */
@@ -111,8 +180,8 @@ main{position:relative}
 main::before{
   content:"";position:absolute;top:0;left:0;right:0;height:min(90vw,680px);
   background:
-    radial-gradient(58% 68% at 82% 4%, rgba(197,15,25,.38), rgba(197,15,25,.10) 55%, transparent 76%),
-    radial-gradient(30% 34% at 64% 26%, rgba(255,60,64,.10), transparent 70%);
+    radial-gradient(58% 68% at 82% 4%, var(--glow-a), var(--glow-b) 55%, transparent 76%),
+    radial-gradient(30% 34% at 64% 26%, var(--glow-c), transparent 70%);
   pointer-events:none;
 }
 main > *{position:relative}
@@ -147,7 +216,7 @@ h2{
   margin:0;line-height:1.15;text-wrap:balance;
 }
 .sec-head .note{margin:10px 0 0;font-size:15px;color:var(--ink-soft)}
-.prose p{margin:0 0 1.15em;text-wrap:pretty;color:#CFCFD4}
+.prose p{margin:0 0 1.15em;text-wrap:pretty;color:var(--ink-body)}
 .prose p:last-child{margin-bottom:0}
 .prose em{font-style:normal;font-weight:600;color:var(--ink)}
 .muted{color:var(--ink-soft)}
@@ -162,7 +231,7 @@ thead th{
   border-bottom:1px solid var(--rule-mid);
 }
 td.item{font-family:var(--f-display);font-weight:600;font-size:15.5px;letter-spacing:-.01em}
-td.when{font-family:var(--f-mono);font-size:13.5px;color:#CFCFD4;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.when{font-family:var(--f-mono);font-size:13.5px;color:var(--ink-body);font-variant-numeric:tabular-nums;white-space:nowrap}
 tr.is-key td.item{color:var(--accent)}
 td.item .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 .after{margin:16px 0 0;font-size:14.5px;color:var(--ink-soft)}
@@ -188,12 +257,12 @@ td.item .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 .board .table-wrap{border:0;border-radius:0;background:transparent}
 .board table{min-width:1000px}
 .leaderboard-page .shell{max-width:1440px}
-.board tbody tr:hover{background:rgba(255,255,255,.04)}
+.board tbody tr:hover{background:var(--hover)}
 .board .empty{
   margin:0;padding:30px 20px;text-align:center;color:var(--ink-soft);font-size:14.5px;
 }
 td.rank{font-family:var(--f-mono);font-variant-numeric:tabular-nums;width:60px;color:var(--ink-soft)}
-td.score{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:#CFCFD4}
+td.score{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink-body)}
 td.pass{font-family:var(--f-mono);font-size:13px;color:var(--ok)}
 td.fail{font-family:var(--f-mono);font-size:13px;color:var(--accent)}
 .round + .round{margin-top:clamp(44px,6vw,64px)}
@@ -206,7 +275,7 @@ h2 .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 }
 .coming .msg{display:block}
 button.btn{border:0;cursor:pointer;font-family:var(--f-display)}
-button.btn--ghost{border:1px solid rgba(255,255,255,.32)}
+button.btn--ghost{border:1px solid var(--ghost-line)}
 .coming .btn{margin-top:16px}
 /* ---------- prizes ---------- */
 .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-mid)}
@@ -214,7 +283,7 @@ button.btn--ghost{border:1px solid rgba(255,255,255,.32)}
   display:flex;align-items:baseline;justify-content:space-between;gap:24px;
   padding:16px 2px;border-bottom:1px solid var(--rule-soft);
 }
-.rows .place{font-family:var(--f-display);font-weight:500;font-size:16px;letter-spacing:-.01em;color:#CFCFD4}
+.rows .place{font-family:var(--f-display);font-weight:500;font-size:16px;letter-spacing:-.01em;color:var(--ink-body)}
 .rows li:first-child .place{color:var(--accent);font-weight:600}
 .rows .amount{
   font-family:var(--f-display);font-weight:700;font-size:26px;
@@ -228,7 +297,7 @@ button.btn--ghost{border:1px solid rgba(255,255,255,.32)}
   padding:18px 4px;text-decoration:none;
   transition:padding-left .18s ease, background .18s ease;
 }
-.links a:hover{padding-left:12px;background:rgba(255,255,255,.04)}
+.links a:hover{padding-left:12px;background:var(--hover)}
 .links .name{grid-column:1;grid-row:1;font-family:var(--f-display);font-weight:600;font-size:16.5px;letter-spacing:-.01em}
 .links .url{grid-column:2;grid-row:1;justify-self:end;font-family:var(--f-mono);font-size:12px;color:var(--accent-ink);word-break:break-all}
 .links .desc{grid-column:1/-1;grid-row:2;color:var(--ink-soft);font-size:14.5px}
@@ -244,8 +313,10 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 }
 .partners{list-style:none;margin:18px 0 34px;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:28px 72px}
 .partners li{margin:0}
-.partner{display:block;color:var(--ink);opacity:.88;transition:opacity .15s ease}
-.partner:hover{opacity:1}
+.partner{display:block;color:var(--ink);opacity:var(--logo-opacity);transition:opacity .15s ease}
+.partner:hover{opacity:var(--logo-opacity-hover)}
+.partner-logo--snu{color:var(--logo-snu)}
+.partner-logo--furiosa{color:var(--logo-furiosa)}
 .partner svg{display:block;max-width:100%;height:auto}
 @media (max-width:560px){
   .partners{gap:24px 40px}
@@ -272,6 +343,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <a class="navlink" href="index.html#resources">Resources</a>
       <a class="navlink" href="faq.html">FAQ</a>
       <span class="navsep" aria-hidden="true"></span>
+      <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to light theme" title="Switch to light theme"><svg class="i-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="3"/><path d="M8 1.2v1.6M8 13.2v1.6M1.2 8h1.6M13.2 8h1.6M3.2 3.2l1.1 1.1M11.7 11.7l1.1 1.1M3.2 12.8l1.1-1.1M11.7 4.3l1.1-1.1"/></svg><svg class="i-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.6 10.1A6 6 0 0 1 5.9 2.4 6 6 0 1 0 13.6 10.1Z"/></svg></button>
       <a class="btn btn--ghost is-current" href="leaderboard.html" aria-current="page">Leaderboard</a>
       <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScOBksLrh4AW5ApaWLEEAdY1pXb4nwV6N1_DFuDWO8kCRc_4A/viewform" target="_blank" rel="noopener">Register</a>
     </nav>
@@ -370,5 +442,23 @@ function load(){
 load();
 </script>
 
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById("theme-toggle"), meta=document.querySelector('meta[name="theme-color"]');
+  if(!btn) return;
+  function sync(){
+    var light=root.getAttribute("data-theme")==="light", label=light?"Switch to dark theme":"Switch to light theme";
+    btn.setAttribute("aria-label",label); btn.setAttribute("title",label);
+    if(meta) meta.setAttribute("content",light?"#F7F7F5":"#060607");
+  }
+  btn.addEventListener("click",function(){
+    var light=root.getAttribute("data-theme")!=="light";
+    if(light) root.setAttribute("data-theme","light"); else root.removeAttribute("data-theme");
+    try{localStorage.setItem("moa-theme",light?"light":"dark");}catch(e){}
+    sync();
+  });
+  sync();
+})();
+</script>
 </body>
 </html>
