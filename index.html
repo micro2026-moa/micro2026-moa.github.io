@@ -175,6 +175,19 @@ a{color:inherit}
   text-decoration-thickness:1px;text-decoration-color:var(--underline);
 }
 .eyebrow a:hover, .lede a:hover, .colophon a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
+/* ---------- notice ---------- */
+.notice{background:var(--warm-wash);border-bottom:1px solid color-mix(in srgb, var(--warm) 35%, transparent)}
+.notice[hidden],.notice-item[hidden]{display:none}
+.notice-list{padding-block:8px}
+.notice-item{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:baseline;gap:2px 14px;padding-block:5px}
+.notice-item:not([hidden]) ~ .notice-item:not([hidden]){border-top:1px solid color-mix(in srgb, var(--warm) 18%, transparent)}
+.notice-tag{font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--warm)}
+.notice-text{margin:0;font-size:14px;line-height:1.55;color:var(--ink-body);text-wrap:pretty}
+.notice-text strong{color:var(--ink);font-weight:600}
+.notice-text a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:var(--underline)}
+.notice-text a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
+.nw{white-space:nowrap}
+@media (max-width:560px){ .notice-item{grid-template-columns:1fr} }
 /* ---------- hero ---------- */
 main{position:relative}
 main::before{
@@ -258,6 +271,9 @@ code{font-family:var(--f-mono);font-size:.9em;background:var(--code-bg);padding:
 }
 .callout-body{margin:0;font-size:15.5px;color:var(--ink-body);text-wrap:pretty}
 .callout-body .lead{color:var(--ink);font-weight:600}
+#tutorial{scroll-margin-top:84px}
+.callout-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:14px}
+.callout-url{font-family:var(--f-mono);font-size:12.5px;color:var(--ink-soft);word-break:break-all}
 /* ---------- schedule ---------- */
 .table-wrap{overflow-x:auto;border:1px solid var(--rule-mid);border-radius:4px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;min-width:520px}
@@ -387,6 +403,19 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     </nav>
   </div>
 </header>
+<div class="notice" id="site-notice" role="region" aria-label="Notices">
+  <div class="shell notice-list">
+    <div class="notice-item" data-until="2026-09-13T12:30:00Z">
+      <span class="notice-tag">Maintenance</span>
+      <p class="notice-text"><strong>Submission server maintenance:</strong> submissions will be unavailable from <strong><span class="nw">Saturday, September 12, 09:00</span> to <span class="nw">Sunday, September 13, 00:30 AoE</span></strong> <span class="nw">(UTC&minus;12)</span>. FuriosaAI Arena remains available during this time.</p>
+    </div>
+    <div class="notice-item" data-until="2026-09-16T00:00:00Z">
+      <span class="notice-tag">Tutorial</span>
+      <p class="notice-text"><strong>MOA 2026 NPU Kernel Optimization Tutorial:</strong> <span class="nw">Tuesday, September 15, 23:00 UTC</span> <span class="nw">(Wednesday, September 16, 08:00 KST)</span> on Google Meet. <a href="https://meet.google.com/ggm-irua-umo" target="_blank" rel="noopener">Join link</a> &middot; <a href="index.html#tutorial">Details</a></p>
+    </div>
+  </div>
+</div>
+<script>(function(){var bar=document.getElementById("site-notice");if(!bar)return;var now=Date.now(),left=0;[].forEach.call(bar.querySelectorAll(".notice-item[data-until]"),function(el){if(now>=Date.parse(el.getAttribute("data-until")))el.hidden=true;else left++;});if(!left)bar.hidden=true;})();</script>
 <main id="top">
   <div class="hero shell">
     <p class="eyebrow"><span><a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a></span> · <span>November 1, 2026</span> · <span>Athens, Greece</span></p>
@@ -413,9 +442,13 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <div class="sec-head">
         <h2>Getting started</h2>
       </div>
-      <div class="callout">
+      <div class="callout" id="tutorial">
         <p class="callout-label">Tutorial session</p>
-        <p class="callout-body"><span class="lead">We are preparing a tutorial session for participants.</span> The date and details will be announced here soon.</p>
+        <p class="callout-body"><span class="lead">MOA 2026 NPU Kernel Optimization Tutorial</span> will be held online on <span class="nw">Tuesday, September 15, 23:00&ndash;24:00 UTC</span> <span class="nw">(Wednesday, September 16, 08:00&ndash;09:00 KST)</span>. A recording will be shared afterwards for those who cannot attend live.</p>
+        <div class="callout-actions">
+          <a class="btn btn--ghost" href="https://meet.google.com/ggm-irua-umo" target="_blank" rel="noopener">Join on Google Meet <span class="arrow">&#8599;</span></a>
+          <span class="callout-url">meet.google.com/ggm-irua-umo</span>
+        </div>
       </div>
       <ol class="steps">
         <li>
@@ -451,6 +484,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
           <tbody>
             <tr class="is-key"><td class="item">Registration Period</td><td class="when">Sep 1 – Sep 15, 2026</td></tr>
             <tr><td class="item">Kernel Optimization Round</td><td class="when">Sep 1 – Sep 25, 2026</td></tr>
+            <tr><td class="item">Tutorial Session <span class="tba">(online)</span></td><td class="when">Sep 15, 2026, 23:00 UTC</td></tr>
             <tr><td class="item">Finalists Announcement</td><td class="when">Sep 30, 2026</td></tr>
             <tr><td class="item">Model Optimization Round</td><td class="when">Oct 1 – Oct 25, 2026</td></tr>
             <tr><td class="item">Award Ceremony <span class="tba">(time and venue TBA)</span></td><td class="when">Nov 1, 2026</td></tr>
