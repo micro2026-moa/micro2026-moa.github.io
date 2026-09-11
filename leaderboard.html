@@ -205,8 +205,9 @@ h1{
 }
 .lede em{font-style:normal;color:var(--ink);font-weight:600}
 .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:34px}
-.hero .lb-notice{margin:18px 0 0;font-size:15px;line-height:1.6;color:var(--ink-soft);text-wrap:pretty}
+.hero .lb-notice{margin:18px 0 0;font-size:clamp(16px,1.7vw,18px);line-height:1.55;color:var(--ink-soft);text-wrap:pretty}
 .lb-notice strong{color:var(--accent);font-weight:600}
+.lb-notice .nowrap{white-space:nowrap}
 .deadline{font-family:var(--f-mono);font-size:13px;color:var(--ink-soft);margin:0}
 .deadline b{color:var(--ink);font-weight:500}
 /* ---------- sections ---------- */
@@ -358,7 +359,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     <p class="eyebrow"><span><a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a></span> · <span>November 1, 2026</span> · <span>Athens, Greece</span></p>
     <h1>Leaderboard</h1>
     <p class="lede">Verified results for each round of the <em>NPU Model Optimization Competition</em>.</p>
-    <p class="lb-notice"><strong>Note:</strong> Leaderboard results are for reference only and do not determine the final rankings.<br>Official rankings will be determined by re-running submissions under the same evaluation conditions.</p>
+    <p class="lb-notice"><strong>Note:</strong> Leaderboard results are for reference only and do not determine the final rankings.<br>Official rankings will be determined by <span class="nowrap">re-running</span> submissions under the same evaluation conditions.</p>
   </div>
 
   <section id="round-1">
