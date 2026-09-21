@@ -397,13 +397,16 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 </header>
 <div class="notice" id="site-notice" role="region" aria-label="Notices">
   <div class="shell notice-list">
-    <div class="notice-item" data-until="2026-09-21T05:00:00Z">
-      <span class="notice-tag">Maintenance</span>
-      <p class="notice-text"><strong>Submission server maintenance:</strong> the submission server is temporarily unavailable while the evaluation criteria are being updated. Submissions are expected to resume by <strong><span class="nw">Monday, September 21, 05:00 UTC</span></strong> <span class="nw">(14:00 KST)</span>. FuriosaAI Arena remains available, so you can continue optimizing your kernels during this time.</p>
+    <div class="notice-item">
+      <span class="notice-tag">Submission</span>
+      <p class="notice-text"><strong>Submission server maintenance:</strong> submissions are unavailable while the evaluation criteria are being updated. Expected to resume by <strong><span class="nw">Monday, September 21, 08:00 UTC</span></strong> <span class="nw">(17:00 KST)</span>.</p>
+    </div>
+    <div class="notice-item">
+      <span class="notice-tag">Arena</span>
+      <p class="notice-text"><strong>FuriosaAI Arena outage:</strong> Arena is temporarily unavailable due to an unexpected issue. We are working on a fix and will update this notice once it is back.</p>
     </div>
   </div>
 </div>
-<script>(function(){var bar=document.getElementById("site-notice");if(!bar)return;var now=Date.now(),left=0;[].forEach.call(bar.querySelectorAll(".notice-item[data-until]"),function(el){if(now>=Date.parse(el.getAttribute("data-until")))el.hidden=true;else left++;});if(!left)bar.hidden=true;})();</script>
 <main id="top">
   <div class="hero shell">
     <p class="eyebrow"><span><a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a></span> · <span>November 1, 2026</span> · <span>Athens, Greece</span></p>
