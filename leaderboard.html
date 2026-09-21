@@ -175,6 +175,18 @@ a{color:inherit}
   text-decoration-thickness:1px;text-decoration-color:var(--underline);
 }
 .eyebrow a:hover, .lede a:hover, .colophon a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
+/* ---------- notice ---------- */
+.notice{background:var(--warm-wash);border-bottom:1px solid color-mix(in srgb, var(--warm) 35%, transparent)}
+.notice[hidden],.notice-item[hidden]{display:none}
+.notice-list{padding-block:8px}
+.notice-item{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:baseline;gap:2px 14px;padding-block:5px}
+.notice-item:not([hidden]) ~ .notice-item:not([hidden]){border-top:1px solid color-mix(in srgb, var(--warm) 18%, transparent)}
+.notice-tag{font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--warm)}
+.notice-text{margin:0;font-size:14px;line-height:1.55;color:var(--ink-body);text-wrap:pretty}
+.notice-text strong{color:var(--ink);font-weight:600}
+.notice-text a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:var(--underline)}
+.notice-text a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
+@media (max-width:560px){ .notice-item{grid-template-columns:1fr} }
 /* ---------- utility ---------- */
 .nw{white-space:nowrap}
 /* ---------- hero ---------- */
@@ -354,6 +366,15 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     </nav>
   </div>
 </header>
+<div class="notice" id="site-notice" role="region" aria-label="Notices">
+  <div class="shell notice-list">
+    <div class="notice-item" data-until="2026-09-21T05:00:00Z">
+      <span class="notice-tag">Maintenance</span>
+      <p class="notice-text"><strong>Submission server maintenance:</strong> the submission server is temporarily unavailable while the evaluation criteria are being updated. Submissions are expected to resume by <strong><span class="nw">Monday, September 21, 05:00 UTC</span></strong> <span class="nw">(14:00 KST)</span>. FuriosaAI Arena remains available, so you can continue optimizing your kernels during this time.</p>
+    </div>
+  </div>
+</div>
+<script>(function(){var bar=document.getElementById("site-notice");if(!bar)return;var now=Date.now(),left=0;[].forEach.call(bar.querySelectorAll(".notice-item[data-until]"),function(el){if(now>=Date.parse(el.getAttribute("data-until")))el.hidden=true;else left++;});if(!left)bar.hidden=true;})();</script>
 
 <main id="top" class="leaderboard-page">
 
