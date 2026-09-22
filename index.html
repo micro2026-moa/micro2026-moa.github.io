@@ -175,18 +175,6 @@ a{color:inherit}
   text-decoration-thickness:1px;text-decoration-color:var(--underline);
 }
 .eyebrow a:hover, .lede a:hover, .colophon a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
-/* ---------- notice ---------- */
-.notice{background:var(--warm-wash);border-bottom:1px solid color-mix(in srgb, var(--warm) 35%, transparent)}
-.notice[hidden],.notice-item[hidden]{display:none}
-.notice-list{padding-block:8px}
-.notice-item{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:baseline;gap:2px 14px;padding-block:5px}
-.notice-item:not([hidden]) ~ .notice-item:not([hidden]){border-top:1px solid color-mix(in srgb, var(--warm) 18%, transparent)}
-.notice-tag{font-family:var(--f-mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--warm)}
-.notice-text{margin:0;font-size:14px;line-height:1.55;color:var(--ink-body);text-wrap:pretty}
-.notice-text strong{color:var(--ink);font-weight:600}
-.notice-text a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:var(--underline)}
-.notice-text a:hover{color:var(--accent-ink);text-decoration-color:var(--accent)}
-@media (max-width:560px){ .notice-item{grid-template-columns:1fr} }
 /* ---------- utility ---------- */
 .nw{white-space:nowrap}
 /* ---------- hero ---------- */
@@ -404,14 +392,6 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
     </nav>
   </div>
 </header>
-<div class="notice" id="site-notice" role="region" aria-label="Notices">
-  <div class="shell notice-list">
-    <div class="notice-item">
-      <span class="notice-tag">Maintenance</span>
-      <p class="notice-text"><strong>Submission server maintenance:</strong> submissions are unavailable while the evaluation criteria are being updated. FuriosaAI Arena remains available, and participants may continue kernel optimization there during this period.</p>
-    </div>
-  </div>
-</div>
 <main id="top">
   <div class="hero shell">
     <p class="eyebrow"><span><a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a></span> · <span>November 1, 2026</span> · <span>Athens, Greece</span></p>
