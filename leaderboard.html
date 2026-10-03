@@ -409,56 +409,11 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 <div class="notice" id="site-notice" role="region" aria-label="Notices">
   <div class="shell notice-list">
     <div class="notice-item">
-      <span class="notice-tag">Update</span>
-      <p class="notice-text"><strong>Kernel Optimization Round updates:</strong> the submission deadline has been extended to <strong><span class="nw">September 30, 23:59 AoE</span></strong>, and the evaluation procedure has changed. <button type="button" class="notice-more" data-ann-open>Read the full announcement <span class="arrow">&#8594;</span></button></p>
+      <span class="notice-tag">Status</span>
+      <p class="notice-text"><strong>Kernel Optimization Round evaluation in progress:</strong> submissions are closed and final scoring is underway. The list of teams advancing to Round 2 and the <strong>Model Optimization Round</strong> guidelines will be announced shortly by email and on this site.</p>
     </div>
   </div>
 </div>
-<dialog class="ann" id="announcement" aria-labelledby="ann-title">
-  <div class="ann-head">
-    <div>
-      <p class="ann-kicker">Announcement &middot; September 23, 2026</p>
-      <h2 class="ann-title" id="ann-title">Updates to the Kernel Optimization Round</h2>
-    </div>
-    <button type="button" class="ann-close" data-ann-close aria-label="Close announcement"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
-  </div>
-  <div class="ann-body">
-    <p>Several important updates to Round 1 &mdash; the Kernel Optimization Round &mdash; of the NPU Model Optimization Competition.</p>
-    <h3>Updated schedule</h3>
-    <p>To give participants sufficient time to adapt to the recent <code>furiosa-opt-std</code> version update and the changes to the evaluation procedure, the schedule has been adjusted as follows.</p>
-    <ul>
-      <li>Round 1 submission deadline &mdash; <strong><span class="nw">September 30, 11:59 PM AoE</span></strong></li>
-      <li>Round 1 results announcement &mdash; <strong>October 2</strong></li>
-      <li>Round 2, the Model Optimization Round, begins &mdash; <strong>October 2</strong>, following the Round 1 results announcement</li>
-    </ul>
-    <p class="ann-key">Each team's final Round 1 evaluation is conducted using its <strong>last submission made before the deadline</strong>, rather than the submission associated with the best score shown on the leaderboard.</p>
-    <h3>Baseline repository and evaluation</h3>
-    <p>The <a href="https://github.com/micro2026-moa/furiosa-opt-gemma4-12B" target="_blank" rel="noopener">baseline repository</a> has been updated with the latest evaluation procedure and instructions for the supported versions.</p>
-    <ul>
-      <li>For Round 1, both <code>furiosa-opt-std</code> <strong>0.6.0</strong> and <strong>0.8.1</strong> are supported. We recommend version 0.8.1, as it includes runtime improvements and provides a more stable evaluation environment.</li>
-      <li>Each kernel is evaluated three times, using a different input case for each run. Each run must pass the correctness check, and the <strong>median cycle count</strong> across the three runs is used for scoring.</li>
-      <li>Submissions that do not pass the required correctness checks are considered invalid and are removed from the leaderboard.</li>
-    </ul>
-    <p>Please refer to the baseline repository for the full evaluation details.</p>
-    <h3>Advancement to Round 2</h3>
-    <p>To give more participants the opportunity to gain hands-on optimization experience in Round 2, approximately <strong>70% of participating teams</strong> will advance. Based on the current submissions, the cutoff score is expected to fall in the <strong>3x&ndash;5x</strong> range.</p>
-    <p>The optimization work completed during Round 1 will also serve as useful groundwork for Round 2, so we encourage you to continue exploring further optimizations through the end of Round 1.</p>
-    <h3>Source code sharing and competition fairness</h3>
-    <p>Publicly sharing competition source code before the official deadline is <strong>strictly prohibited</strong>. If publicly shared code is copied or plagiarized by another participant, both the code provider and the user will be immediately disqualified from receiving any awards.</p>
-    <p>If you currently have any competition code publicly accessible, please set it to private or remove it immediately. Thank you for your cooperation in maintaining a fair competition environment.</p>
-    <p class="ann-foot">This announcement was also sent by email to all registered participants on September 23, 2026. Technical questions are best asked on the <a href="https://forums.furiosa.ai/" target="_blank" rel="noopener">FuriosaAI forums</a>, where answers are shared with all participants. For personal inquiries, contact <a href="mailto:moa2026.competition@gmail.com">moa2026.competition@gmail.com</a>.</p>
-  </div>
-</dialog>
-<script>(function(){
-  var dlg=document.getElementById("announcement");if(!dlg)return;
-  function openAnn(){if(dlg.open)return;if(dlg.showModal){dlg.showModal();}else{dlg.setAttribute("open","");}document.body.classList.add("ann-open");}
-  function closeAnn(){if(dlg.close){dlg.close();}else{dlg.removeAttribute("open");document.body.classList.remove("ann-open");}}
-  [].forEach.call(document.querySelectorAll("[data-ann-open]"),function(b){b.addEventListener("click",function(e){e.preventDefault();openAnn();});});
-  [].forEach.call(dlg.querySelectorAll("[data-ann-close]"),function(b){b.addEventListener("click",closeAnn);});
-  dlg.addEventListener("click",function(e){if(e.target===dlg)closeAnn();});
-  dlg.addEventListener("close",function(){document.body.classList.remove("ann-open");});
-  if(location.hash==="#announcement")openAnn();
-})();</script>
 
 <main id="top" class="leaderboard-page">
 
