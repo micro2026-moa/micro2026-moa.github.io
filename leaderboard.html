@@ -645,7 +645,7 @@ function renderR2(data){
   const rows = data.map(normalizeR2)
     .filter(r => r.valid && Number.isFinite(r.throughput) && r.ttft <= 4000 && r.tpot <= 100)
     .sort((a,b) => (a.rank ?? Infinity) - (b.rank ?? Infinity) || b.throughput - a.throughput);
-  const note = rows.length ? `<p class="board-note">${rows.length} team${rows.length === 1 ? "" : "s"} · ranked by throughput</p>` : `<p class="board-note">Model Optimization runs Oct 2 – Oct 25, 2026.</p>`;
+  const note = rows.length ? `<p class="board-note">${rows.length} team${rows.length === 1 ? "" : "s"} · ranked by throughput</p>` : "";
   const inner = rows.length
     ? `<div class="table-wrap"><table class="r2"><thead><tr><th scope="col">Rank</th><th scope="col">Team</th><th scope="col">Submission</th><th scope="col" class="num">Throughput<br><span class="unit">(tokens/s)</span></th></tr></thead><tbody>${
         rows.map((r,i) => `<tr><td class="rank">${r.rank ?? i + 1}</td><td class="item">${esc(r.team)}</td><td class="score" title="${esc(r.id)}">#${esc(r.code)}</td><td class="tput num">${fixed(r.throughput, 1)}</td></tr>`).join("")
@@ -656,7 +656,7 @@ function renderR2(data){
 
 function loadR2(){
   if(!R2_ENABLED){
-    modelBoard.innerHTML = `<div class="board">${R2_HEAD}<p class="board-note">Model Optimization runs Oct 2 – Oct 25, 2026.</p></div><div class="coming"><strong>Coming soon</strong>The Model Optimization leaderboard will open shortly.</div></div>`;
+    modelBoard.innerHTML = `<div class="board">${R2_HEAD}</div><div class="coming"><strong>Coming soon</strong>The Model Optimization leaderboard will open shortly.</div></div>`;
     return;
   }
   modelBoard.innerHTML = `<div class="board"><p class="empty">Loading results…</p></div>`;
