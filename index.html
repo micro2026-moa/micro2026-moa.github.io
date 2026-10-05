@@ -227,6 +227,11 @@ body.ann-open{overflow:hidden}
   .ann-head{padding:16px 16px 12px}
   .ann-body{padding:16px 16px 20px;font-size:14px}
 }
+/* ---------- advancing teams (in dialog) ---------- */
+.ann-body .teams{list-style:none;margin:14px 0 12px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));border-top:1px solid var(--rule-mid);border-left:1px solid var(--rule-mid)}
+.ann-body .teams li{margin:0;padding:10px 14px;border-right:1px solid var(--rule-mid);border-bottom:1px solid var(--rule-mid);background:var(--ground);font-family:var(--f-display);font-weight:600;font-size:14.5px;letter-spacing:-.01em;color:var(--ink);overflow-wrap:anywhere}
+@media (max-width:560px){ .ann-body .teams{grid-template-columns:1fr 1fr} .ann-body .teams li{padding:9px 12px;font-size:14px} }
+@media (max-width:340px){ .ann-body .teams{grid-template-columns:1fr} }
 /* ---------- utility ---------- */
 .nw{white-space:nowrap}
 /* ---------- hero ---------- */
@@ -447,11 +452,104 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
 <div class="notice" id="site-notice" role="region" aria-label="Notices">
   <div class="shell notice-list">
     <div class="notice-item">
-      <span class="notice-tag">Status</span>
-      <p class="notice-text"><strong>Kernel Optimization Round evaluation in progress:</strong> submissions are closed and final scoring is underway. The list of teams advancing to Round 2 and the <strong>Model Optimization Round</strong> guidelines will be announced by email and on this site.</p>
+      <span class="notice-tag">Results</span>
+      <p class="notice-text"><strong>Kernel Optimization Round results:</strong> the teams advancing to Round 2 have been announced. Advancing teams have been sent the Round 2 guidelines by email. <button type="button" class="notice-more" data-ann-open>See the advancing teams <span class="arrow">&#8594;</span></button></p>
     </div>
   </div>
 </div>
+<dialog class="ann" id="announcement" aria-labelledby="ann-title">
+  <div class="ann-head">
+    <div>
+      <p class="ann-kicker">Results &middot; October 5, 2026</p>
+      <h2 class="ann-title" id="ann-title">Teams advancing to Round 2</h2>
+    </div>
+    <button type="button" class="ann-close" data-ann-close aria-label="Close announcement"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+  </div>
+  <div class="ann-body">
+    <p>The final evaluation of the Kernel Optimization Round is complete. <strong><span id="adv-count">64</span> teams</strong> advance to Round 2.</p>
+    <ul class="teams" id="teams" aria-label="Advancing teams">
+<!-- TEAMS:START -->
+      <li>AIFUR</li>
+      <li>aman28</li>
+      <li>ASP - RISE</li>
+      <li>ASP Opticore</li>
+      <li>ASP SOLO</li>
+      <li>Asteromorph</li>
+      <li>BEEF</li>
+      <li>bitbit</li>
+      <li>castaway</li>
+      <li>COSLAB</li>
+      <li>Curling Gradient</li>
+      <li>EarlyBird</li>
+      <li>ecl</li>
+      <li>eclab</li>
+      <li>EDABK Spidey</li>
+      <li>EDABK-Artemis</li>
+      <li>EoM</li>
+      <li>Fluidstack</li>
+      <li>franknoh</li>
+      <li>FY</li>
+      <li>Goat Chovy #1557</li>
+      <li>hgichon</li>
+      <li>Huflit-NPU</li>
+      <li>IA -ARIA ON THE PLANETES-</li>
+      <li>If I had the money</li>
+      <li>ILoveFuriosaAI❤️</li>
+      <li>KAIMARU</li>
+      <li>KIM</li>
+      <li>KLG</li>
+      <li>latebird</li>
+      <li>Leo</li>
+      <li>monkey</li>
+      <li>mskim</li>
+      <li>NPU_ASP_BKIC</li>
+      <li>NpuMind</li>
+      <li>Participant #-2147483648</li>
+      <li>Participant #070</li>
+      <li>Participant #164</li>
+      <li>Participant #185</li>
+      <li>Participant #283</li>
+      <li>Participant #300</li>
+      <li>Participant #398</li>
+      <li>Participant #428</li>
+      <li>Participant #482</li>
+      <li>Participant #596</li>
+      <li>Participant #608</li>
+      <li>Participant #659</li>
+      <li>Participant #663</li>
+      <li>Participant #720</li>
+      <li>Participant #795</li>
+      <li>Participant #913</li>
+      <li>Participant #991</li>
+      <li>pdao</li>
+      <li>PN</li>
+      <li>Pribess</li>
+      <li>Pulbitmaru</li>
+      <li>RTOSLab</li>
+      <li>SAL</li>
+      <li>Slugcat</li>
+      <li>SNU_Mlsys</li>
+      <li>SOTA</li>
+      <li>Test_Server</li>
+      <li>The_Odyssey_of_EDABK</li>
+      <li>zlfn</li>
+<!-- TEAMS:END -->
+    </ul>
+    <p>If you're not sure of your leaderboard name, run <code>moa-submitter whoami</code>.</p>
+    <p class="ann-foot">For questions about the results, please contact <a href="mailto:moa2026.competition@gmail.com">moa2026.competition@gmail.com</a>. Technical questions are best asked on the <a href="https://forums.furiosa.ai/" target="_blank" rel="noopener">FuriosaAI forums</a>.</p>
+  </div>
+</dialog>
+<script>(function(){
+  var dlg=document.getElementById("announcement");if(!dlg)return;
+  var list=document.getElementById("teams"),cnt=document.getElementById("adv-count");if(list&&cnt)cnt.textContent=list.children.length;
+  function openAnn(){if(dlg.open)return;if(dlg.showModal){dlg.showModal();}else{dlg.setAttribute("open","");}document.body.classList.add("ann-open");}
+  function closeAnn(){if(dlg.close){dlg.close();}else{dlg.removeAttribute("open");document.body.classList.remove("ann-open");}}
+  document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest("[data-ann-open]");if(t){e.preventDefault();openAnn();}});
+  [].forEach.call(dlg.querySelectorAll("[data-ann-close]"),function(b){b.addEventListener("click",closeAnn);});
+  dlg.addEventListener("click",function(e){if(e.target===dlg)closeAnn();});
+  dlg.addEventListener("close",function(){document.body.classList.remove("ann-open");});
+  if(location.hash==="#advancing"||location.hash==="#announcement")openAnn();
+})();</script>
 <main id="top">
   <div class="hero shell">
     <p class="eyebrow"><span><a href="https://www.ai-bmt.com/micro2026-MOA/overview" target="_blank" rel="noopener">MOA Workshop</a></span> · <span>November 1, 2026</span> · <span>Athens, Greece</span></p>
@@ -516,9 +614,8 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
           </thead>
           <tbody>
             <tr><td class="item">Registration Period</td><td class="when">Sep 1 – Sep 20, 2026 (AoE)</td></tr>
-            <tr class="is-key"><td class="item">Kernel Optimization Round <span class="tba">(extended)</span></td><td class="when">Sep 1 – Sep 30, 2026 (AoE)</td></tr>
-            <tr><td class="item">Kernel Round Results Announcement <span class="tba">(evaluation in progress)</span></td><td class="when">Oct 2, 2026</td></tr>
-            <tr><td class="item">Model Optimization Round</td><td class="when">Oct 2 – Oct 25, 2026</td></tr>
+            <tr><td class="item">Kernel Optimization Round</td><td class="when">Sep 1 – Sep 30, 2026 (AoE)</td></tr>
+            <tr class="is-key"><td class="item">Model Optimization Round</td><td class="when">Oct 2 – Oct 25, 2026</td></tr>
             <tr><td class="item">Award Ceremony <span class="tba">(time and venue TBA)</span></td><td class="when">Nov 1, 2026</td></tr>
           </tbody>
         </table>

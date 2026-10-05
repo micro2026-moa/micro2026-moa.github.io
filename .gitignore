@@ -1,0 +1,4 @@
+# local preview scratch (never deploy)
+preview-*.html
+*-shot.png
+.preview/
