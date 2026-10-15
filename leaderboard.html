@@ -635,7 +635,8 @@ function normalizeR2(row){
 
 function renderR2(data){
   const rows = data.map(normalizeR2)
-    .filter(r => r.valid && Number.isFinite(r.throughput) && r.ttft <= 4000 && r.tpot <= 100)
+    // The server lists only submissions that passed accuracy and the latency limits.
+    .filter(r => r.valid && Number.isFinite(r.throughput))
     .sort((a,b) => (a.rank ?? Infinity) - (b.rank ?? Infinity) || b.throughput - a.throughput);
   const note = rows.length ? `<p class="board-note">${rows.length} team${rows.length === 1 ? "" : "s"} · ranked by throughput</p>` : "";
   const inner = rows.length
