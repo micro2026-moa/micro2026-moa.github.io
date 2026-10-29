@@ -138,7 +138,7 @@ a{color:inherit}
 .theme-toggle .i-moon{display:none}
 :root[data-theme="light"] .theme-toggle .i-sun{display:none}
 :root[data-theme="light"] .theme-toggle .i-moon{display:block}
-@media (max-width:900px){ .masthead nav .navlink, .masthead nav .navsep{display:none} }
+@media (max-width:960px){ .masthead nav .navlink, .masthead nav .navsep{display:none} }
 @media (max-width:520px){
   .masthead .shell{gap:12px}
   .masthead nav{gap:8px}
@@ -378,6 +378,21 @@ h2 .tba{font-weight:400;color:var(--ink-soft);white-space:nowrap}
 button.btn{border:0;cursor:pointer;font-family:var(--f-display)}
 button.btn--ghost{border:1px solid var(--ghost-line)}
 .coming .btn{margin-top:16px}
+/* ---------- winners ---------- */
+.winners{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-mid)}
+.winners li{
+  display:grid;grid-template-columns:7.5em minmax(0,1fr) auto;align-items:baseline;gap:8px 24px;
+  padding:20px 2px;border-bottom:1px solid var(--rule-soft);
+}
+.winners .place{font-family:var(--f-display);font-weight:500;font-size:16px;letter-spacing:-.01em;color:var(--ink-body)}
+.winners li:first-child .place{color:var(--accent);font-weight:600}
+.winners .team{font-family:var(--f-display);font-weight:700;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em;line-height:1.15;color:var(--ink);overflow-wrap:anywhere}
+.winners .tput{font-family:var(--f-mono);font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+.winners .tput .unit{font-weight:400;font-size:13px;color:var(--ink-soft)}
+@media (max-width:560px){
+  .winners li{grid-template-columns:minmax(0,1fr) auto;padding:16px 2px}
+  .winners .place{grid-column:1 / -1}
+}
 /* ---------- prizes ---------- */
 .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-mid)}
 .rows li{
@@ -436,6 +451,7 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
   <div class="shell">
     <a class="brand" href="#top">MOA<span>·</span>Competition</a>
     <nav>
+      <a class="navlink" href="#winners">Winners</a>
       <a class="navlink" href="#overview">Overview</a>
       <a class="navlink" href="#start">Get started</a>
       <a class="navlink" href="#dates">Dates</a>
@@ -551,6 +567,19 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
       <a class="btn btn--lg" href="https://docs.google.com/forms/d/e/1FAIpQLScOBksLrh4AW5ApaWLEEAdY1pXb4nwV6N1_DFuDWO8kCRc_4A/viewform" target="_blank" rel="noopener">Register <span class="arrow">→</span></a>
     </div>
   </div>
+  <section id="winners">
+    <div class="shell">
+      <div class="sec-head">
+        <h2>Winners</h2>
+        <p class="note">Final ranking of the Model Optimization Round, by throughput (generated tokens/s).</p>
+      </div>
+      <ol class="winners">
+        <li><span class="place">1st place</span><span class="team">eclab</span><span class="tput">870.0 <span class="unit">tokens/s</span></span></li>
+        <li><span class="place">2nd place</span><span class="team">RTOSLab</span><span class="tput">821.1 <span class="unit">tokens/s</span></span></li>
+        <li><span class="place">3rd place</span><span class="team">monkey</span><span class="tput">630.2 <span class="unit">tokens/s</span></span></li>
+      </ol>
+    </div>
+  </section>
   <section id="overview">
     <div class="shell">
       <div class="sec-head">
@@ -607,8 +636,8 @@ footer{border-top:1px solid var(--rule);padding:48px 0 64px}
           <tbody>
             <tr><td class="item">Registration Period</td><td class="when">Sep 1 – Sep 20, 2026 (AoE)</td></tr>
             <tr><td class="item">Kernel Optimization Round</td><td class="when">Sep 1 – Sep 30, 2026 (AoE)</td></tr>
-            <tr class="is-key"><td class="item">Model Optimization Round</td><td class="when">Oct 2 – Oct 25, 2026</td></tr>
-            <tr><td class="item">Award Ceremony <span class="tba">(time and venue TBA)</span></td><td class="when">Nov 1, 2026</td></tr>
+            <tr><td class="item">Model Optimization Round</td><td class="when">Oct 2 – Oct 25, 2026</td></tr>
+            <tr class="is-key"><td class="item">Award Ceremony</td><td class="when">Nov 1, 2026</td></tr>
           </tbody>
         </table>
       </div>
